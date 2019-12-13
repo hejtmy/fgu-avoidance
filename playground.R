@@ -9,10 +9,11 @@ tab %>% filter(Event == "Coordinate") %>%
 
 tab %>% filter(Event == "Coordinate") %>%
   filter(AnimNo == 14) %>%
-  ggplot(aes(Parameter1, Parameter2)) + geom_path() + theme_bw() + 
+  ggplot(aes(Parameter1, Parameter2)) + 
   scale_fill_gradientn(colours=rev(rainbow(100, start=0, end=0.75))) +
-  stat_density2d(aes(fill=..level..,alpha=..level..),
-                        bins=50, geom = 'polygon')
+  stat_density2d(aes(fill=..level..), bins = 250, geom = 'polygon') +
+  geom_path() + theme_bw() + 
+  lims(x = c(0, 450), y = c(0,400))
 
 ## Needs to be weighted by the time spent in each area
 # https://stackoverflow.com/questions/24198514/ggplot2-modify-geom-density2d-to-accept-weights-as-a-parameter
