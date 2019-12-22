@@ -1,10 +1,11 @@
-readLines("example-data/three-animals.CSV", 2)
+filepath <- "example-data/three-animals.CSV"
 library(dplyr)
 library(ggplot2)
 
-tab <- load_data()
 
-tab %>% filter(Event == "Coordinate") %>%
+tab <- load_data(filepath)
+
+
   filter(AnimNo == 14) %>%
   ggplot(aes(Parameter1, Parameter2)) + geom_path() + theme_bw()
 

@@ -27,3 +27,13 @@ filter_coordinates <- function(df){
   res <- df[df$Event == "Coordinate",]
   return(res)
 }
+
+filter_animal <- function(df, animal_code){
+  res <- df[df$AnimNo == animal_code, ]
+  return(res)
+}
+
+
+create_animal_code <- function(num){
+  return(paste0("animal", num))
+}
