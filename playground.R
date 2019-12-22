@@ -1,7 +1,8 @@
 readLines("example-data/three-animals.CSV", 2)
-tab <- read.table("example-data/three-animals.CSV", sep=";", dec=",", skip=1, header=TRUE)
 library(dplyr)
 library(ggplot2)
+
+tab <- load_data()
 
 tab %>% filter(Event == "Coordinate") %>%
   filter(AnimNo == 14) %>%
