@@ -3,18 +3,10 @@ library(dplyr)
 library(ggplot2)
 
 
-tab <- load_data(filepath)
+obj <- load_data(filepath)
+create_heatmap(obj$animal_14)
 
-
-  filter(AnimNo == 14) %>%
-  ggplot(aes(Parameter1, Parameter2)) + geom_path() + theme_bw()
-
-tab %>% filter(Event == "Coordinate") %>%
-  filter(AnimNo == 14) %>%
-  ggplot(aes(Parameter1, Parameter2)) + geom_path() + theme_bw() + 
-  scale_fill_gradientn(colours=rev(rainbow(100, start=0, end=0.75))) +
-  stat_density2d(aes(fill=..level..,alpha=..level..),
-                        bins=50, geom = 'polygon')
+tab <- load_table(filepath)
 
 ## Needs to be weighted by the time spent in each area
 # https://stackoverflow.com/questions/24198514/ggplot2-modify-geom-density2d-to-accept-weights-as-a-parameter
