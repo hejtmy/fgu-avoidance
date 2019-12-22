@@ -16,10 +16,6 @@ tab %>% filter(Event == "Coordinate") %>%
   mutate(time_diff = c(diff(Time), 0)) %>%
   # summarize(x = rep(Parameter1, time_diff), y = rep(Parameter2, time_diff)) %>%
   select(Parameter1, Parameter2, time_diff) %>% 
-  ggplot(aes(x = Parameter1, y = Parameter2)) + 
-  scale_fill_gradientn(colours=rev(rainbow(100, start=0, end=0.75))) +
-  stat_density2d(aes(fill=..density..), geom = 'raster', contour = FALSE) + 
-  geom_path(color = "white", alpha = 0.3) + theme_bw()
 
 
 a <- tab %>% filter(Event == "Coordinate") %>%
