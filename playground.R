@@ -11,13 +11,6 @@ tab <- load_table(filepath)
 ## Needs to be weighted by the time spent in each area
 # https://stackoverflow.com/questions/24198514/ggplot2-modify-geom-density2d-to-accept-weights-as-a-parameter
 
-tab %>% filter(Event == "Coordinate") %>%
-  filter(AnimNo == 14) %>%
-  mutate(time_diff = c(diff(Time), 0)) %>%
-  # summarize(x = rep(Parameter1, time_diff), y = rep(Parameter2, time_diff)) %>%
-  select(Parameter1, Parameter2, time_diff) %>% 
-
-
 a <- tab %>% filter(Event == "Coordinate") %>%
   filter(AnimNo == 14) %>%
   mutate(time_diff = c(diff(Time), 0)) %>%
