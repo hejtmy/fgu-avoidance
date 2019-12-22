@@ -10,6 +10,7 @@ load_data <- function(filepath){
   res <- list()
   df <- load_table(filepath)
   df <- df[df$Type == "Te", ]
+  df$AnimNo <- create_animal_code(df$AnimNo)
   animals <- unique(df$AnimNo)
   for(animal in animals){
     obj <- list()
@@ -17,8 +18,7 @@ load_data <- function(filepath){
     position <- as.navr(df_animal)
     obj$position <- position
     class(obj) <- append(class(obj), "avoidance.single")
-    animal_code <- create_animal_code(animal)
-    res[[animal_code]] <- obj
+    res[[animal]] <- obj
   }
   class(res) <- append(class(res), "avoidance.multiple")
   return(res)

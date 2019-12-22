@@ -33,7 +33,6 @@ filter_animal <- function(df, animal_code){
   return(res)
 }
 
-
 create_animal_code <- function(num){
-  return(paste0("animal", num))
+  return(paste0("animal_", num))
 }
