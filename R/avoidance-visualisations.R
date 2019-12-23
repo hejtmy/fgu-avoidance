@@ -6,7 +6,13 @@
 #' @export
 #'
 #' @examples
-create_heatmap_polygon <- function(obj, bins = 50){
+#' 
+
+create_heatmap_polygon <- function(obj, bins = 50, ...){
+  UseMethod("create_heatmap_polygon")
+}
+
+create_heatmap_polygon.avoidance.single <- function(obj, bins = 50){
   df <- get_position(obj)
   plt <- ggplot(df, aes(position_x, position_y)) +
     gradient_style() +
@@ -17,7 +23,16 @@ create_heatmap_polygon <- function(obj, bins = 50){
   return(plt)
 }
 
-create_heatmap_rastr <- function(obj){
+create_heatmap_polygon.avoidance.multiple <- function(obj, bins = 50){
+  obj <- combine_all(obj)
+  return(create_heatmap_polygon.avoidance.single(obj, bins))
+}
+
+create_heatmap_rastr <- function(obj, ...){
+  UseMethod("create_heatmap_rastr")
+}
+
+create_heatmap_rastr.avoidance.single <- function(obj){
   df <- get_position(obj)
   plt <- ggplot(df, aes(x = position_x, y = position_y)) +
     gradient_style() +
@@ -27,6 +42,10 @@ create_heatmap_rastr <- function(obj){
   return(plt)
 }
 
+create_heatmap_rastr.avoidance.multiple <- function(obj){
+  obj <- combine_all(obj)
+  return(create_heatmap_rastr.avoidance.single(obj))
+}
 
 gradient_style <- function(){
   return(scale_fill_gradientn(colours=rev(rainbow(100, start=0, end=0.75)))) 
