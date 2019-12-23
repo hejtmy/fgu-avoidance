@@ -2,7 +2,6 @@ filepath <- "example-data/three-animals.CSV"
 library(dplyr)
 library(ggplot2)
 
-
 obj <- load_data(filepath)
 create_heatmap(obj$animal_14)
 
