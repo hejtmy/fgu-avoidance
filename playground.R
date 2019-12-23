@@ -23,3 +23,10 @@ ggplot(prep, aes(x, y)) +
   scale_fill_gradientn(colours=rev(rainbow(100, start=0, end=0.75))) +
   stat_density2d(aes(fill=..density..), geom = 'raster', contour = FALSE) + 
   geom_path(color = "white", alpha = 0.3) + theme_bw()
+
+
+## Hanka heatmaps
+data_folder <- file.path("..", "data", "one-trial-shuttling-run34-15mins")
+dirs <- list.dirs(data_folder, full.names = TRUE)
+
+hab <- load_folder(dirs[2])

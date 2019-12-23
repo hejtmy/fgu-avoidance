@@ -15,6 +15,27 @@ as.navr <- function(df){
   return(obj)
 }
 
+convert_table_to_objects <- function(df){
+  res <- list()
+  animals <- unique(df$AnimNo)
+  for(animal in animals){
+    obj <- list()
+    df_animal <- filter_animal(df, animal)
+    position <- as.navr(df_animal)
+    obj$position <- position
+    class(obj) <- append(class(obj), "avoidance.single")
+    res[[animal]] <- obj
+  }
+  class(res) <- append(class(res), "avoidance.multiple")
+  return(res) 
+}
+
+process_table <- function(df){
+  df <- df[2:nrow(df),] #for some reaons the first row is always weird
+  df$AnimNo <- create_animal_code(df$AnimNo)
+  return(df)
+}
+
 #' Filter out the coordinates from the loaded data
 #'
 #' @param df

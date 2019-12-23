@@ -1,3 +1,22 @@
+#' Loads all files from a folder and combines to a large table which is then processed 
+#'
+#' @param folder 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+load_folder <- function(folder){
+  files <- list.files(folder, pattern = "\\.(csv|CSV)", full.names = TRUE)
+  res <- data.frame()
+  for(f in files){
+    df <- load_table(f)
+    res <- rbind(res, df)
+  }
+  res <- convert_table_to_objects(res)
+  return(res)
+}
+
 #' Title
 #'
 #' @param filepath 
@@ -9,22 +28,13 @@
 load_data <- function(filepath){
   res <- list()
   df <- load_table(filepath)
-  df <- df[df$Type == "Te", ]
-  df$AnimNo <- create_animal_code(df$AnimNo)
-  animals <- unique(df$AnimNo)
-  for(animal in animals){
-    obj <- list()
-    df_animal <- filter_animal(df, animal)
-    position <- as.navr(df_animal)
-    obj$position <- position
-    class(obj) <- append(class(obj), "avoidance.single")
-    res[[animal]] <- obj
-  }
-  class(res) <- append(class(res), "avoidance.multiple")
+  res <- convert_table_to_objects(df)
   return(res)
 }
 
 load_table <- function(filepath){
-  tab <- read.table(filepath, sep=";", dec=",", skip=1, header=TRUE)
-  return(tab)
+  df <- read.table(filepath, sep=";", dec=",", skip=1, header=TRUE)
+  df <- process_table(df)
+  return(df)
 }
+
