@@ -47,6 +47,24 @@ create_heatmap_rastr.avoidance.multiple <- function(obj){
   return(create_heatmap_rastr.avoidance.single(obj))
 }
 
+# PATHS -----
+create_path <- function(obj, ...){
+  plt <- ggplot() +
+    geom_box_room() +
+    geom_navr_path(obj$position, size = 1.25, color = "#98959a") +
+    guides(fill=FALSE) +
+    theme_void()
+  return(plt)
+}
+
+# ELEMENTS -----
+geom_box_room <- function(){
+  return(geom_rect(aes(xmin=10, xmax=380, ymin=80, ymax=340, fill="#65a9ff"),
+                   color = "#61af93", alpha = 0.5, size = 1.5))
+}
+
+# STYLES -----
+
 gradient_style <- function(){
   return(scale_fill_gradientn(colours=rev(rainbow(100, start=0, end=0.75)))) 
 }
