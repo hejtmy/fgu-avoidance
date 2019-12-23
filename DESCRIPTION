@@ -1,0 +1,21 @@
+Package: fgu.avoidance
+Title: Loading, preprocessing and visualising logs from the avoidance box
+Version: 0.1.0
+Authors@R: person("Lukas", "Hejtmanek", email = "hejtmy@gmail.com",
+                  role = c("aut", "cre"))
+Description: Loading, preprocessing and visualising logs from 
+  the avoidance box stationed in the institute of physiology, ASCR, Prague
+License: MIT
+LazyData: true
+Remotes:
+  hejtmy/navr
+Depends:
+  R (>= 3.1.0),
+  navr
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown,
+    covr
+RoxygenNote: 6.1.1
+VignetteBuilder: knitr

@@ -1,3 +1,6 @@
+# Reports
+*.html
+# R files
 .Rproj.user
 .Rhistory
 .RData

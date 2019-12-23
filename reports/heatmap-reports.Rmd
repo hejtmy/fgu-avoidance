@@ -1,0 +1,45 @@
+---
+title: "heatmaps"
+author: "Lukáš Hejtmánek"
+date: "22 December 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(fgu.avoidance)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+data_folder <- file.path("..", "..", "data", "one-trial-shuttling-run34-15mins")
+dirs <- list.dirs(data_folder, full.names = TRUE)
+```
+
+
+```{r, results='asis'}
+for(i in 2:length(dirs)){
+  folder <- dirs[i]
+  obj <- load_folder(dirs[i])
+  cat("<h3>folder ", folder, "</h3>")
+  cat('<p><div class="row">')
+  cat('<div class="col-md-6">')
+  plt <- create_heatmap_polygon(obj)
+  print(plt)
+  cat("</div>")
+  cat('<div class="col-md-6">')
+  plt <- create_heatmap_rastr(obj)
+  print(plt)
+  cat("</div>")
+  cat("</p></div>")
+  cat('<div class="row">')
+  for(n in 1:length(obj)){
+    pth <- create_path(obj[[n]])
+    cat('<div class="col-md-3">')
+    print(pth)
+    cat("</div>")
+  } 
+  cat("</div>")
+}
+# HEADER
+
+```
