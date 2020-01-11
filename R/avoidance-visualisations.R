@@ -76,6 +76,7 @@ create_heatmap_rastr.avoidance.multiple <- function(obj){
 create_path <- function(obj, ...){
   plt <- ggplot() +
     geom_box_room() +
+    geom_box_half() +
     geom_navr_path(obj$position, size = 1.25, color = "#98959a") +
     guides(fill=FALSE) +
     theme_void()
@@ -89,6 +90,13 @@ geom_box_room <- function(){
   return(geom_rect(aes(xmin=box$x[1], xmax=box$x[2], 
                        ymin=box$y[1], ymax=box$y[2]),
                    color = "#61af93", size = 1.5, fill="white"))
+}
+
+geom_box_half <- function(){
+  midline <- box_midline_zone(type = "animal", size = 20)
+  return(geom_rect(aes(xmin = midline$x[1], xmax = midline$x[2],
+                       ymin = midline$y[1], ymax = midline$y[2]),
+                   color = "red", size = 1))
 }
 
 # STYLES -----

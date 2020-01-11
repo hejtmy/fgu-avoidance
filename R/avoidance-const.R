@@ -9,3 +9,10 @@ box_room_size <- function(type = "animal"){
     return(BOX_ROOM_REAL)
   }
 }
+
+box_midline_zone <- function(type = "animal", size = 10){
+  box <- box_room_size()
+  x <- sum(box$x)/2 + c(-size, size)
+  y <- box$y
+  return(list(x = x, y = y))
+}
