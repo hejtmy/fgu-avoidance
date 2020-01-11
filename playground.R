@@ -1,10 +1,11 @@
 filepath <- "example-data/three-animals.CSV"
 library(dplyr)
 library(ggplot2)
+library(fgu.avoidance)
 
 obj <- load_data(filepath)
-create_heatmap(obj$animal_14)
-
+create_heatmap_polygon(obj$animal_14)
+create_path(obj$animal_14)
 tab <- load_table(filepath)
 
 ## Needs to be weighted by the time spent in each area
@@ -29,3 +30,13 @@ data_folder <- file.path("..", "data", "one-trial-shuttling-run34-15mins")
 dirs <- list.dirs(data_folder, full.names = TRUE)
 
 hab <- load_folder(dirs[2])
+
+
+## Arena size
+
+filepath <- "../data/arena-size/arena-size.CSV"
+obj <- load_data(filepath)
+fgu.avoidance::create_path(obj$animal_3)
+
+range(obj$animal_3$position$data$position_x)
+range(obj$animal_3$position$data$position_y)

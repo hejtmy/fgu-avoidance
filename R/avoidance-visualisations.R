@@ -85,7 +85,8 @@ create_path <- function(obj, ...){
 # ELEMENTS -----
 #' @export
 geom_box_room <- function(){
-  return(geom_rect(aes(xmin=10, xmax=380, ymin=80, ymax=340),
+  return(geom_rect(aes(xmin=BOX_ROOM$x[1], xmax=BOX_ROOM$x[2], 
+                       ymin=BOX_ROOM$y[1], ymax=BOX_ROOM$y[2]),
                    color = "#61af93", size = 1.5, fill="white"))
 }
 
@@ -94,6 +95,7 @@ geom_box_room <- function(){
 gradient_style <- function(){
   return(scale_fill_gradientn(colours=heatmap_color()))
 }
+
 heatmap_theme <- function(){
   return(theme(panel.background = element_rect(fill = heatmap_color()[1]),
           panel.grid.major = element_blank(),
