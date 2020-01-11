@@ -10,7 +10,7 @@ box_room_size <- function(type = "animal"){
   }
 }
 
-box_midline_zone <- function(type = "animal", size = 10){
+box_midline_zone <- function(type = "animal", size = 20){
   box <- box_room_size()
   x <- sum(box$x)/2 + c(-size, size)
   y <- box$y

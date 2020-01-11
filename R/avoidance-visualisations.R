@@ -64,7 +64,7 @@ create_heatmap_rastr.avoidance.multiple <- function(obj){
 }
 
 # PATHS -----
-#' Title
+#' Creates a path graph of a single trial
 #'
 #' @param obj 
 #' @param ... 
@@ -73,10 +73,10 @@ create_heatmap_rastr.avoidance.multiple <- function(obj){
 #' @export
 #'
 #' @examples
-create_path <- function(obj, ...){
+create_path <- function(obj, midline = box_midline_zone()){
   plt <- ggplot() +
     geom_box_room() +
-    geom_box_half() +
+    geom_box_midline(midline) +
     geom_navr_path(obj$position, size = 1.25, color = "#98959a") +
     guides(fill=FALSE) +
     theme_void()
@@ -92,8 +92,8 @@ geom_box_room <- function(){
                    color = "#61af93", size = 1.5, fill="white"))
 }
 
-geom_box_half <- function(){
-  midline <- box_midline_zone(type = "animal", size = 20)
+#' @export
+geom_box_midline <- function(midline){
   return(geom_rect(aes(xmin = midline$x[1], xmax = midline$x[2],
                        ymin = midline$y[1], ymax = midline$y[2]),
                    color = "red", size = 1))
@@ -102,7 +102,7 @@ geom_box_half <- function(){
 # STYLES -----
 
 gradient_style <- function(){
-  return(scale_fill_gradientn(colours=heatmap_color()))
+  return(scale_fill_gradientn(colours = heatmap_color()))
 }
 
 heatmap_theme <- function(){
