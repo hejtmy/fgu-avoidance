@@ -94,6 +94,7 @@ geom_box_room <- function(){
 
 #' @export
 geom_box_midline <- function(midline){
+  if (is.null(midline)) return(list())
   return(geom_rect(aes(xmin = midline$x[1], xmax = midline$x[2],
                        ymin = midline$y[1], ymax = midline$y[2]),
                    color = "red", size = 1))
