@@ -85,8 +85,9 @@ create_path <- function(obj, ...){
 # ELEMENTS -----
 #' @export
 geom_box_room <- function(){
-  return(geom_rect(aes(xmin=BOX_ROOM$x[1], xmax=BOX_ROOM$x[2], 
-                       ymin=BOX_ROOM$y[1], ymax=BOX_ROOM$y[2]),
+  box <- box_room_size()
+  return(geom_rect(aes(xmin=box$x[1], xmax=box$x[2], 
+                       ymin=box$y[1], ymax=box$y[2]),
                    color = "#61af93", size = 1.5, fill="white"))
 }
 
