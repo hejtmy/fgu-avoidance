@@ -59,18 +59,31 @@ create_animal_code <- function(num){
 }
 
 ## AREAs ----
-add_areas <- function(obj, areas){
-  UseMethod("add_areas")
-}
 
-add_areas.avoidance.multiple <- function(obj, areas){
+#' Adds areas of interest into the positioning data.
+#'
+#' @param obj avoidance.multiple object
+#' @param areas list of areas of interest to add. Defaults to implemented left, central and right areas
+#'
+#' @return object which was passed with added areas
+#' @export
+#'
+#' @examples
+add_areas.avoidance.multiple <- function(obj, areas = default_zones()){
   for(i in 1:length(obj)){
-    obj[[i]] <- add_areas(obj[[i]])
+    obj[[i]] <- add_areas(obj[[i]], areas)
   }
   return(obj)
 }
-
-add_areas.avoidance.single <- function(obj, areas){
+#' Adds areas if ubterest into the positioning data
+#' @param obj avoidance.single object
+#' @param areas list of areas of interest to add. Defaults to implemented left, central and right areas
+#'
+#' @return object which was passed with added areas
+#' @export
+#'
+#' @examples
+add_areas.avoidance.single <- function(obj, areas = default_zones()){
   obj$position <- navr::add_areas(obj$position, areas)
   return(obj)
 }
