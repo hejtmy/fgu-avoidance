@@ -2,7 +2,7 @@
 title: "Cross testing"
 author: "Lukáš 'hejtmy' Hejtmánek"
 date: "12/01/2020"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -44,3 +44,5 @@ cross_only_right <- setdiff(cross_right_central, cross_right_left)
 
 plot_crosses(obj, union(cross_only_left, cross_only_right))
 ```
+
+The weird plotting - eg. the seemingly overalapping tracks in the top and the track in the bottom which eventually crosses to the left are due to the plotting, not calculation (I am plotting approx 1s around the cross, therefore if the mouse crosses the boundary multiple times, final lines are overlapping. Same goes for the eventual cross, which is due to a single there and back movement and then eventual cross to the other side - same track (here in pink) can be seen in the lime green in the graph above)
