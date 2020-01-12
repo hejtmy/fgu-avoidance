@@ -47,3 +47,8 @@ navr::calculate_areas_time(obj14$position)
 get_area_visits(obj14$position, "left", from="right", between_allowed = 0)
 get_area_visits(obj14$position, "left", from="central", between_allowed = 1)
 get_area_visits(obj14$position, "left", from="right", between_allowed = 1)
+
+# 2090 is considered left from central but not left from right
+times <- range(obj14$position$data$timestamp[2080:2100])
+obj_erroneous <- filter_times(obj14$position, times)
+plot_path(obj_erroneous) + geom_navr_area(room_zone()) + geom_navr_area(central_zone())
