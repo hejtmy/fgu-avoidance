@@ -77,6 +77,7 @@ add_areas.avoidance.multiple <- function(obj, areas = default_zones()){
   }
   return(obj)
 }
+
 #' Adds areas if ubterest into the positioning data
 #' @param obj avoidance.single object
 #' @param areas list of areas of interest to add. Defaults to implemented left, central and right areas
