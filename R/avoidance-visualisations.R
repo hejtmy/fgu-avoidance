@@ -102,17 +102,17 @@ plot_crosses <- function(obj, iCrosses){
 
 # ELEMENTS -----
 #' @export
-geom_box_room <- function(){
+geom_box_room <- function(color = "#61af93", size = 1.25, fill = "white", ...){
   box <- box_room_size()
   return(geom_rect(aes(xmin=box$x[1], xmax=box$x[2], 
                        ymin=box$y[1], ymax=box$y[2]),
-                   color = "#61af93", size = 1.5, fill="white"))
+                   color = color, size = size, fill=fill, ...))
 }
 
 #' @export
-geom_central_zone <- function(zone = central_zone()){
+geom_central_zone <- function(zone = central_zone(), color = "red", size = 1, ...){
   if (is.null(zone)) return(list())
-  return(geom_navr_area(zone, color = "red", size = 1))
+  return(geom_navr_area(zone, color = color, size = size, ...))
 }
 
 base_path_plot <- function(zone = central_zone()){

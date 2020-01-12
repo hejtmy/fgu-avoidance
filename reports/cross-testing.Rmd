@@ -6,25 +6,41 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(fgu.avoidance)
+library(dplyr)
+filepath <- "../example-data/three-animals.CSV"
+
+obj <- load_data(filepath)
+obj <- add_areas(obj)
+obj <- obj$animal_14
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## R Markdown
+# Crosses testing
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Due to the issues with the software, it is necessary to redefine the number of crosses slightly differently. The main issue is the animal "peeking" out into the zone but not actually visiting it. We then end up with much higher number of crosses than intended. The way to circumwent this is to set a central zone in which the "cross" doesn't count. This is how the Arena then looks
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+plt <- ggplot() + geom_box_room(fill = "grey20", alpha = 0.3) + geom_central_zone(fill = "red", alpha = 0.2) + theme_void()
+# Add some text??
+plt
 ```
 
-## Including Plots
+The zone in the middle is the "noman's zone", where the cross doesn't count as a cross. The animal needs to cross from either of the grey areas to count as a cross.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+The following tracks are therefore considered crosses:
+```{r}
+cross_left_right <- get_area_visits(obj$position, "left", from="right", between_allowed = 1)
+cross_right_left <- get_area_visits(obj$position, "right", from="left", between_allowed = 1)
+plot_crosses(obj, union(cross_left_right, cross_right_left))
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Whereas these tracks would not be counted as middle crosses, although they might cross the midline
+```{r}
+cross_left_central <- get_area_visits(obj$position, "left", from="central", between_allowed = 1)
+cross_only_left <- setdiff(cross_left_central, cross_left_right)
+cross_right_central <- get_area_visits(obj$position, "right", from="central", between_allowed = 1)
+cross_only_right <- setdiff(cross_right_central, cross_right_left)
+
+plot_crosses(obj, union(cross_only_left, cross_only_right))
+```

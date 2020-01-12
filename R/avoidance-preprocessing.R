@@ -10,8 +10,10 @@ as.navr <- function(df){
   df <- filter_coordinates(df)
   df <- df[, c("Time", "Parameter1", "Parameter2")]
   colnames(df) <- c("timestamp", "position_x", "position_y")
+  df$timestamp <- df$timestamp/1000
   obj <- navr::NavrObject()
   obj <- navr::load_position_data(obj, df)
+  obj <- prepare_navr(obj)
   return(obj)
 }
 
