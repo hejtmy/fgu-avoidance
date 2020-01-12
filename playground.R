@@ -1,10 +1,11 @@
 filepath <- "example-data/three-animals.CSV"
 library(dplyr)
 library(ggplot2)
+library(fgu.avoidance)
 
 obj <- load_data(filepath)
-create_heatmap(obj$animal_14)
-
+create_heatmap_polygon(obj$animal_14)
+plot_path(obj$animal_14)
 tab <- load_table(filepath)
 
 ## Needs to be weighted by the time spent in each area

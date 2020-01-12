@@ -10,8 +10,10 @@ as.navr <- function(df){
   df <- filter_coordinates(df)
   df <- df[, c("Time", "Parameter1", "Parameter2")]
   colnames(df) <- c("timestamp", "position_x", "position_y")
+  df$timestamp <- df$timestamp/1000
   obj <- navr::NavrObject()
   obj <- navr::load_position_data(obj, df)
+  obj <- prepare_navr(obj)
   return(obj)
 }
 
@@ -56,4 +58,35 @@ filter_animal <- function(df, animal_code){
 
 create_animal_code <- function(num){
   return(paste0("animal_", num))
+}
+
+## AREAs ----
+
+#' Adds areas of interest into the positioning data.
+#'
+#' @param obj avoidance.multiple object
+#' @param areas list of areas of interest to add. Defaults to implemented left, central and right areas
+#'
+#' @return object which was passed with added areas
+#' @export
+#'
+#' @examples
+add_areas.avoidance.multiple <- function(obj, areas = default_zones()){
+  for(i in 1:length(obj)){
+    obj[[i]] <- add_areas(obj[[i]], areas)
+  }
+  return(obj)
+}
+
+#' Adds areas if ubterest into the positioning data
+#' @param obj avoidance.single object
+#' @param areas list of areas of interest to add. Defaults to implemented left, central and right areas
+#'
+#' @return object which was passed with added areas
+#' @export
+#'
+#' @examples
+add_areas.avoidance.single <- function(obj, areas = default_zones()){
+  obj$position <- navr::add_areas(obj$position, areas)
+  return(obj)
 }

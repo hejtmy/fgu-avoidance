@@ -33,7 +33,7 @@ for(i in 2:length(dirs)){
   cat("</p></div>")
   cat('<div class="row">')
   for(n in 1:length(obj)){
-    pth <- create_path(obj[[n]])
+    pth <- plot_path(obj[[n]])
     cat('<div class="col-md-3">')
     print(pth)
     cat("</div>")

@@ -37,4 +37,3 @@ load_table <- function(filepath){
   df <- process_table(df)
   return(df)
 }
-
