@@ -59,17 +59,18 @@ create_animal_code <- function(num){
 }
 
 ## AREAs ----
-add_areas <- function(obj){
+add_areas <- function(obj, areas){
   UseMethod("add_areas")
 }
 
-add_areas.avoidance.multiple <- function(obj){
+add_areas.avoidance.multiple <- function(obj, areas){
   for(i in 1:length(obj)){
     obj[[i]] <- add_areas(obj[[i]])
   }
   return(obj)
 }
 
-add_areas.avoidance.single <- function(obj){
-  obj$position <- navr::add_areas(obj$position)
+add_areas.avoidance.single <- function(obj, areas){
+  obj$position <- navr::add_areas(obj$position, areas)
+  return(obj)
 }

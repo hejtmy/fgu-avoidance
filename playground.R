@@ -39,3 +39,11 @@ fgu.avoidance::create_path(obj$animal_3)
 
 range(obj$animal_3$position$data$position_x)
 range(obj$animal_3$position$data$position_y)
+
+## Areas search
+obj14 <- obj$animal_14
+obj14 <- add_areas(obj14, list(central_zone(size=50), left_zone(), right_zone()))
+navr::calculate_areas_time(obj14$position)
+get_area_visits(obj14$position, "left", from="right", between_allowed = 0)
+get_area_visits(obj14$position, "left", from="central", between_allowed = 1)
+get_area_visits(obj14$position, "left", from="right", between_allowed = 1)

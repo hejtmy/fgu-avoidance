@@ -21,7 +21,7 @@ central_zone <- function(type = "animal", size = 20){
   box <- box_room_size(type)
   x <- sum(box$x)/2 + c(-size, size)
   y <- box$y
-  area <- AreaObject("midzone", type="rectangle",
+  area <- AreaObject("central", type="rectangle",
                      points = limits_to_points(x, y))
   return(area)
 }
@@ -34,6 +34,7 @@ left_zone <- function(){
                         points = points)
   return(area)
 }
+
 right_zone <- function(){
   room <- room_zone()
   central <- central_zone()
