@@ -31,7 +31,6 @@ dirs <- list.dirs(data_folder, full.names = TRUE)
 
 hab <- load_folder(dirs[2])
 
-
 ## Arena size
 
 filepath <- "../data/arena-size/arena-size.CSV"

@@ -73,10 +73,10 @@ create_heatmap_rastr.avoidance.multiple <- function(obj){
 #' @export
 #'
 #' @examples
-create_path <- function(obj, midline = box_midline_zone()){
+create_path <- function(obj, zone = central_zone()){
   plt <- ggplot() +
     geom_box_room() +
-    geom_box_midline(midline) +
+    geom_central_zone(zone) +
     geom_navr_path(obj$position, size = 1.25, color = "#98959a") +
     guides(fill=FALSE) +
     theme_void()
@@ -93,11 +93,9 @@ geom_box_room <- function(){
 }
 
 #' @export
-geom_box_midline <- function(midline){
-  if (is.null(midline)) return(list())
-  return(geom_rect(aes(xmin = midline$x[1], xmax = midline$x[2],
-                       ymin = midline$y[1], ymax = midline$y[2]),
-                   color = "red", size = 1))
+geom_central_zone <- function(zone){
+  if (is.null(zone)) return(list())
+  return(geom_navr_area(zone, color = "red", size = 1))
 }
 
 # STYLES -----

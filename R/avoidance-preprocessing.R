@@ -57,3 +57,19 @@ filter_animal <- function(df, animal_code){
 create_animal_code <- function(num){
   return(paste0("animal_", num))
 }
+
+## AREAs ----
+add_areas <- function(obj){
+  UseMethod("add_areas")
+}
+
+add_areas.avoidance.multiple <- function(obj){
+  for(i in 1:length(obj)){
+    obj[[i]] <- add_areas(obj[[i]])
+  }
+  return(obj)
+}
+
+add_areas.avoidance.single <- function(obj){
+  obj$position <- navr::add_areas(obj$position)
+}
