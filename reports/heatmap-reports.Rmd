@@ -8,6 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 library(fgu.avoidance)
 library(knitr)
+library(ggpubr)
 source(file.path("functions", "results-formatting.R"))
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
@@ -37,9 +38,10 @@ cat('<div class="container">')
 cat('<div class="row">')
 for(n in 1:length(obj)){
   cat('<div class="row">')
-    pth <- plot_path(obj[[n]])
+    plt_path <- plot_path(obj[[n]])
+    plt_presence <- plot_area_presence(obj[[n]])
     cat('<div class="col-md-6">')
-      print(pth)
+      print(ggarrange(plt_path, plt_presence, ncol = 1, nrow = 2, heights = c(3,1)))
     cat('</div>')
     cat('<div class="col-md-3">')
       cat('<h3>', names(obj)[n], '</h3>')

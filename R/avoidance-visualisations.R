@@ -26,7 +26,7 @@ create_heatmap.avoidance.multiple <- function(obj, bins = 50, geom = "polygon", 
 }
 
 create_heatmap_plot <- function(obj, bins, geom, ...){
-  df <- get_position(obj)
+  df <- get_position_table(obj)
   size <- box_room_size()
   plt <- ggplot(df, aes(x = position_x, y = position_y)) 
   if(geom == "polygon") plt <- plt + 
@@ -83,6 +83,7 @@ plot_crosses <- function(obj, iCrosses){
 }
 
 ## AREA PRESENCE -----
+
 #' PLots an image of area presence for avoidance.single 
 #'
 #' @param obj avoidance.single object
@@ -104,26 +105,36 @@ plot_area_presence <- function(obj){
   crosses <- collect_crosses(obj)
   
   ordered <- crosses[order(crosses$time),]
+  # if there were no crosses altogether, we create a fake crosses with the start area
+  if(nrow(ordered) < 1){
+    start_area <- get_position_table(obj)[1, 'area']
+    ordered <- data.frame(time = 0, from=start_area, 
+                          to = start_area, stringsAsFactors = FALSE)
+  }
   # starts at 0 until last cross
   time_start <- c(0, ordered$time)
   # starts at first frossing until the end fo the recording  
   time_end <- c(ordered$time, tail(obj$position$data$timestamp, 1))
-  # After the last "from" is made, the last location from time end till the recording
+  # Aftr the last "from" is made, the last location from time end till the recording
   # end is the opposite location than was just left, 
   location <- c(ordered$from, tail(ordered$to, 1))
   df <- data.frame(where = location, start = time_start, end = time_end)
   df$time_spent <- df$end - df$start
   plt <- ggplot(df) +
     geom_rect(aes(xmin = start, xmax = end, ymin = -0, ymax = 1, fill = where)) +
-    geom_text(aes(x=(start+end)/2, y = 1.5 + 5/4*(where=="left"), label = where)) +
-    guides(fill=FALSE) + xlab("Time since start") +
+    #geom_text(aes(x=(start+end)/2, y = 1.5 + 5/4*(where=="left"), label = where), check_overlap = TRUE) +
+    xlab("Time since start") +
     scale_fill_manual(values = area_presence_scale()) +
-    coord_fixed(ratio = 50) + ylim(0,6) +
+    coord_fixed(ratio = 60) + ylim(0,6) +
     theme_classic() +
+    guides(fill = guide_legend(nrow=1, title="")) +
     theme(axis.line.y = element_blank(),
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
-          axis.ticks.y = element_blank())
+          axis.ticks.y = element_blank(),
+          legend.position = c(0.9, 0.75),
+          legend.background = element_blank(),
+          legend.box = "horizontal") 
   return(plt)
 }
 
@@ -163,5 +174,5 @@ heatmap_color <- function(){
   return(rev(rainbow(100, start=0, end=0.7)))
 }
 area_presence_scale <- function(){
-  return(rev(c("#e2e2e2", "#ffffff")))
+  return(rev(c("#e2e2e2", "#000000")))
 }
