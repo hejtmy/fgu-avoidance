@@ -82,6 +82,51 @@ plot_crosses <- function(obj, iCrosses){
   return(plt)
 }
 
+## AREA PRESENCE -----
+#' PLots an image of area presence for avoidance.single 
+#'
+#' @param obj avoidance.single object
+#'
+#' @return
+#' @export
+#'
+#' @examples
+plot_area_presence <- function(obj){
+  # check for class
+  if(!("avoidance.single" %in% class(obj))){
+    warning("The object is not avoidance.single object")
+    return(NULL)
+  }
+  if(!has_areas(obj$position)){
+    warning("The object has not areas added. Have you run add_areas?")
+    return(NULL)
+  }
+  crosses <- collect_crosses(obj)
+  
+  ordered <- crosses[order(crosses$time),]
+  # starts at 0 until last cross
+  time_start <- c(0, ordered$time)
+  # starts at first frossing until the end fo the recording  
+  time_end <- c(ordered$time, tail(obj$position$data$timestamp, 1))
+  # After the last "from" is made, the last location from time end till the recording
+  # end is the opposite location than was just left, 
+  location <- c(ordered$from, tail(ordered$to, 1))
+  df <- data.frame(where = location, start = time_start, end = time_end)
+  df$time_spent <- df$end - df$start
+  plt <- ggplot(df) +
+    geom_rect(aes(xmin = start, xmax = end, ymin = -0, ymax = 1, fill = where)) +
+    geom_text(aes(x=(start+end)/2, y = 1.5 + 5/4*(where=="left"), label = where)) +
+    guides(fill=FALSE) + xlab("Time since start") +
+    scale_fill_manual(values = area_presence_scale()) +
+    coord_fixed(ratio = 50) + ylim(0,6) +
+    theme_classic() +
+    theme(axis.line.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.title.y = element_blank(),
+          axis.ticks.y = element_blank())
+  return(plt)
+}
+
 ## ELEMENTS -----
 #' @export
 geom_box_room <- function(color = "#61af93", size = 1.25, fill = "white", ...){
@@ -116,4 +161,7 @@ heatmap_theme <- function(){
 }
 heatmap_color <- function(){
   return(rev(rainbow(100, start=0, end=0.7)))
+}
+area_presence_scale <- function(){
+  return(rev(c("#e2e2e2", "#ffffff")))
 }

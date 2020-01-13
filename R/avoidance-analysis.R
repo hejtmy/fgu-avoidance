@@ -63,12 +63,12 @@ collect_crosses <- function(obj){
 }
 #' @export
 collect_crosses.avoidance.multiple <- function(obj){
-  res <- data.frame(stringsAsFactors = FALSE)
+  res <- data.frame()
   for(i in 1:length(obj)){
     df <- collect_crosses.avoidance.single(obj[[i]])
     if(is.null(df)) return(NULL)
     if(nrow(df) > 0){
-      res <- rbind(res, df)
+      res <- rbind.data.frame(res, df)
       df$animal <- names(obj)[i]
     }
   }
@@ -83,7 +83,7 @@ collect_crosses.avoidance.single <- function(obj){
   }
   to_left_from_right <- collect_crosses.navr(pos, to = LEFT_ZONE_NAME, from = RIGHT_ZONE_NAME, between_allowed = 1)
   to_right_from_left <- collect_crosses.navr(pos, to = RIGHT_ZONE_NAME, from = LEFT_ZONE_NAME, between_allowed = 1)
-  res <- rbind(to_right_from_left, to_left_from_right)
+  res <- rbind.data.frame(to_right_from_left, to_left_from_right)
   return(res)
 }
 
@@ -92,7 +92,8 @@ collect_crosses.navr <- function(obj, to, from, between_allowed){
   res <- data.frame(from = rep(from, length(iVisits)),
                     to = rep(to, length(iVisits)),
                     time = obj$data$timestamp[iVisits],
-                    index = iVisits)
+                    index = iVisits, 
+                    stringsAsFactors = FALSE)
   return(res)
   
 }
