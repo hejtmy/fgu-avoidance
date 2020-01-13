@@ -1,67 +1,50 @@
-#' Creates heatmap from passed navr object
+## HEATMAPS -----
+
+#' Creates heatmap from passed object
 #'
-#' @param obj nav_object
+#' @param obj object to calculate heatmap from
+#' @param bins number of bins
+#' @param geom which geom to use? possibile are "polygon"(default) or "raster"
+#' @param ... optional params to the stat_density2d geom
 #'
 #' @return
 #' @export
 #'
 #' @examples
-#' 
-create_heatmap_polygon <- function(obj, bins = 100, ...){
-  UseMethod("create_heatmap_polygon")
+create_heatmap <- function(obj, bins = 100, geom = "polygon", ...){
+  UseMethod("create_heatmap")
 }
 #' @export
-create_heatmap_polygon.avoidance.single <- function(obj, bins = 50){
-  df <- get_position(obj)
-  plt <- ggplot(df, aes(position_x, position_y)) +
-    gradient_style() +
-    stat_density2d(aes(fill=..level..), bins=bins, geom = 'polygon') +
-    lims(x=c(0,450), y=c(0, 400)) +
-    coord_cartesian(xlim = BOX_ROOM$x, ylim = BOX_ROOM$y) + 
-    theme_bw() +
-    guides(fill = FALSE) +
-    heatmap_theme()
+create_heatmap.avoidance.single <- function(obj, bins = 50, geom = "polygon", ...){
+  plt <- create_heatmap_plot(obj, bins, geom, ...)
   return(plt)
 }
 #' @export
-create_heatmap_polygon.avoidance.multiple <- function(obj, bins = 50){
+create_heatmap.avoidance.multiple <- function(obj, bins = 50, geom = "polygon", ...){
   obj <- combine_all(obj)
-  return(create_heatmap_polygon.avoidance.single(obj, bins))
+  return(create_heatmap.avoidance.single(obj, bins, geom))
 }
 
-#' Title
-#'
-#' @param obj 
-#' @param ... 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-create_heatmap_rastr <- function(obj, ...){
-  UseMethod("create_heatmap_rastr")
-}
-
-#' @export
-create_heatmap_rastr.avoidance.single <- function(obj){
+create_heatmap_plot <- function(obj, bins, geom, ...){
   df <- get_position(obj)
-  plt <- ggplot(df, aes(x = position_x, y = position_y)) +
+  size <- box_room_size()
+  plt <- ggplot(df, aes(x = position_x, y = position_y)) 
+  if(geom == "polygon") plt <- plt + 
+    stat_density2d(aes(fill=..level..), geom = geom, bins = bins, ...) +
+    lims (x=c(0,500), y = c(0,500))
+  if(geom == "raster") plt <- plt + 
+    stat_density2d(aes(fill=..density..), geom = geom, bins = bins, contour = FALSE, ...)
+  plt <- plt +
     gradient_style() +
-    stat_density2d(aes(fill=..density..), geom = 'raster', contour = FALSE) +
     guides(fill=FALSE, alpha = FALSE, level=FALSE) +
-    coord_cartesian(xlim = BOX_ROOM$x, ylim = BOX_ROOM$y) + 
+    coord_cartesian(xlim = size$x, ylim = size$y) +
     theme_bw() +
     heatmap_theme()
-  return(plt)
+  return(plt) 
 }
 
-#' @export
-create_heatmap_rastr.avoidance.multiple <- function(obj){
-  obj <- combine_all(obj)
-  return(create_heatmap_rastr.avoidance.single(obj))
-}
+## PATHS -----
 
-# PATHS -----
 #' Creates a path graph of a single trial
 #'
 #' @param obj 
@@ -77,7 +60,7 @@ plot_path.avoidance.single <- function(obj, zone = central_zone()){
   return(plt)
 }
 
-# CROSSES -----
+## CROSSES -----
 
 #' plots crosses 
 #'
@@ -99,8 +82,7 @@ plot_crosses <- function(obj, iCrosses){
   return(plt)
 }
 
-
-# ELEMENTS -----
+## ELEMENTS -----
 #' @export
 geom_box_room <- function(color = "#61af93", size = 1.25, fill = "white", ...){
   box <- box_room_size()
@@ -121,19 +103,17 @@ base_path_plot <- function(zone = central_zone()){
     theme_void() + guides(fill=FALSE)
   return(res)
 }
-# STYLES -----
-
+## STYLES -----
+#' Styling functions for the heatmap and paths
 gradient_style <- function(){
   return(scale_fill_gradientn(colours = heatmap_color()))
 }
-
 heatmap_theme <- function(){
   return(theme(panel.background = element_rect(fill = heatmap_color()[1]),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
           panel.border = element_blank()))
 }
-
 heatmap_color <- function(){
   return(rev(rainbow(100, start=0, end=0.7)))
 }
