@@ -30,3 +30,9 @@ data_folder <- file.path("..", "data", "one-trial-shuttling-run34-15mins")
 dirs <- list.dirs(data_folder, full.names = TRUE)
 
 hab <- load_folder(dirs[2])
+
+## analysis
+filepath <- "../data/run35-house-session/"
+obj <- load_folder(filepath)
+obj <- add_areas(obj)
+session_results(obj)

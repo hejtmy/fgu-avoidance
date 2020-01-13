@@ -1,3 +1,53 @@
+## ANALYSIS ----
+
+#' Basic results to give a report from a single session
+#'
+#' @param obj 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+session_results <- function(obj){ 
+  UseMethod("session_results")  
+}
+#' @export
+session_results.avoidance.multiple <- function(obj){
+  res <- data.frame(stringsAsFactors = FALSE)
+  for(i in 1:length(obj)){
+    animal_res <- session_results.avoidance.single(obj[[i]])
+    animal_res$animal <- as.character(names(obj)[i])
+    res <- rbind(res, as.data.frame(animal_res))
+  }
+  return(res)
+}
+#' @export
+session_results.avoidance.single <- function(obj){
+  pos <- obj$position
+  if(!has_areas(pos)){
+    warning("Areas have not been collectd. Have you run add_areas?")
+    return(NULL)
+  }
+  res <- list()
+  res$distance <- tail(pos$data$distance_total, 1)
+  
+  time_in_areas <- calculate_areas_time(pos)
+  get_time_in_area <- function(df, area){
+    time <- df[df$area == area, "duration"]
+    if(length(time) != 1) time <- NA_real_
+    return(time)
+  }
+  res$time_left <- get_time_in_area(time_in_areas, LEFT_ZONE_NAME)
+  res$time_right <- get_time_in_area(time_in_areas, RIGHT_ZONE_NAME)
+  res$time_center <- get_time_in_area(time_in_areas, CENTRAL_ZONE_NAME)
+  
+  crosses <- collect_crosses.avoidance.single(obj)
+  res$crosses_right <- nrow(crosses[crosses$to == RIGHT_ZONE_NAME & crosses$from == LEFT_ZONE_NAME,])
+  return(res)
+}
+
+# FREEZING
+
 # CROSSES ------
 #' Collects information about each cross in given object
 #'
@@ -12,7 +62,7 @@ collect_crosses <- function(obj){
 }
 #' @export
 collect_crosses.avoidance.multiple <- function(obj){
-  res <- data.frame()
+  res <- data.frame(stringsAsFactors = FALSE)
   for(i in 1:length(obj)){
     df <- collect_crosses.avoidance.single(obj[[i]])
     if(is.null(df)) return(NULL)
