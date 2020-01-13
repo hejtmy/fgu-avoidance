@@ -27,21 +27,24 @@ cat('<p><div class="row">')
   cat("</div>")
   cat('<div class="col-md-6">')
     plt <- create_heatmap_rastr(obj)
-  print(plt)
+    print(plt)
   cat("</div>")
 cat("</p></div>")
 ```
 
 ```{r results='asis'}
+cat('<div class="container">')
 cat('<div class="row">')
-#for(n in 1:length(obj)){
-for(n in 1:2){
-  pth <- plot_path(obj[[n]])
-  cat('<div class="col-md-3">')
-    print(pth)
-  cat("</div>")
-  cat('<div class="col-md-3">')
-    cat(session_results_output(session_results(obj[[n]])))
+for(n in 1:length(obj)){
+  cat('<div class="row">')
+    pth <- plot_path(obj[[n]])
+    cat('<div class="col-md-6">')
+      print(pth)
+    cat('</div>')
+    cat('<div class="col-md-6">')
+      cat('<h3>', names(obj)[n], '</h3>')
+      cat(session_results_output(session_results(obj[[n]])))
+    cat("</div>")
   cat("</div>")
 } 
 cat("</div>")

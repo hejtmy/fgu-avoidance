@@ -42,7 +42,8 @@ session_results.avoidance.single <- function(obj){
   res$time_center <- get_time_in_area(time_in_areas, CENTRAL_ZONE_NAME)
   
   crosses <- collect_crosses.avoidance.single(obj)
-  res$crosses_right <- nrow(crosses[crosses$to == RIGHT_ZONE_NAME & crosses$from == LEFT_ZONE_NAME,])
+  res$crosses_right <- nrow(crosses[crosses$to == RIGHT_ZONE_NAME & crosses$from == LEFT_ZONE_NAME, ])
+  res$crosses_left <- nrow(crosses[crosses$to == LEFT_ZONE_NAME & crosses$from == RIGHT_ZONE_NAME, ])
   return(res)
 }
 
