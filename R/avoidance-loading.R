@@ -1,6 +1,6 @@
 #' Loads all files from a folder and combines to a large table which is then processed 
 #'
-#' @param folder 
+#' @param folder folder with multiple animals loaded
 #'
 #' @return
 #' @export
@@ -11,17 +11,19 @@ load_folder <- function(folder){
   res <- data.frame()
   for(f in files){
     df <- load_table(f)
+    ## Checks for the same animal names
+    df <- add_unique_animal_code(df, res)
     res <- rbind(res, df)
   }
   res <- convert_table_to_objects(res)
   return(res)
 }
 
-#' Title
+#' Load data from a particular filepath
 #'
-#' @param filepath 
+#' @param filepath path to the data.csv
 #'
-#' @return
+#' @return avoidance.single object
 #' @export
 #'
 #' @examples

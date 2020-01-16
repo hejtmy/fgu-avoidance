@@ -60,6 +60,18 @@ create_animal_code <- function(num){
   return(paste0("animal_", num))
 }
 
+add_unique_animal_code <- function(df_new, df_old){
+  anim_code <- df_new$AnimNo[1]
+  existing_codes <- unique(df_old$AnimNo)
+  enum <- 2
+  while(anim_code %in% existing_codes){
+    anim_code <- paste0(anim_code, "_", enum)
+    enum <- enum + 1
+  }
+  df_new$AnimNo <- anim_code
+  return(df_new)
+}
+
 ## AREAs ----
 
 #' Adds areas of interest into the positioning data.
