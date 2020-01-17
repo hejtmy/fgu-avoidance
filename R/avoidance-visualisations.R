@@ -1,4 +1,4 @@
-## HEATMAPS -----
+# HEATMAPS -----
 
 #' Creates heatmap from passed object
 #'
@@ -11,16 +11,16 @@
 #' @export
 #'
 #' @examples
-create_heatmap <- function(obj, bins = 100, background = aparatus_image_path(), ...){
+create_heatmap <- function(obj, bins = 100, background = apparatus_image_path(), ...){
   UseMethod("create_heatmap")
 }
 #' @export
-create_heatmap.avoidance.single <- function(obj, bins = 100, background = aparatus_image_path(), ...){
+create_heatmap.avoidance.single <- function(obj, bins = 100, background = apparatus_image_path(), ...){
   plt <- create_heatmap_plot(obj, bins, background, ...)
   return(plt)
 }
 #' @export
-create_heatmap.avoidance.multiple <- function(obj, bins = 100, background = aparatus_image_path(), ...){
+create_heatmap.avoidance.multiple <- function(obj, bins = 100, background = apparatus_image_path(), ...){
   obj <- combine_all(obj)
   return(create_heatmap.avoidance.single(obj, bins, background, ...))
 }
@@ -37,7 +37,7 @@ create_heatmap_plot <- function(obj, bins, background, ...){
   plt <- plt +
     geom_navr_heatmap(obj$position, bins, ...) +
     gradient_style() +
-    lims (x=c(0,500), y = c(0,500)) +
+    lims(x=c(0,500), y = c(0,500)) +
     guides(fill=FALSE, alpha = FALSE, level=FALSE) +
     coord_cartesian(xlim = size$x, ylim = size$y) +
     theme_bw() +
@@ -52,16 +52,30 @@ create_heatmap_plot <- function(obj, bins, background, ...){
 
 #' Creates a path graph of a single trial
 #'
-#' @param obj 
+#' @param obj avoidance single object
+#' @param center 
+#' @param background 
+#' @param color 
+#' @param size 
 #' @param ... 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-plot_path.avoidance.single <- function(obj, zone = central_zone()){
-  plt <- base_path_plot(zone)
-  plt <- plt + geom_navr_path(obj$position, size = 1.25, color = "#98959a")
+plot_path.avoidance.single <- function(obj, center = central_zone(), background = NULL, 
+                                       color = "#98959a", size = 1.25, ...){
+  if(!is.null(background)){
+    size <- box_room_size(type = "real")
+    plt <- background_path_plot(background) 
+  } else {
+    size <- box_room_size(type = "animal")
+    plt <- base_path_plot(center)
+  }
+  plt <- plt +
+    geom_central_zone(center) + 
+    geom_navr_path(obj$position, size = 1.25, color = "#98959a") +
+    coord_cartesian(xlim = size$x, ylim = size$y)
   return(plt)
 }
 
@@ -159,9 +173,19 @@ geom_central_zone <- function(zone = central_zone(), color = "red", size = 1, ..
 }
 
 base_path_plot <- function(zone = central_zone()){
-  res <- ggplot() + geom_box_room() +
-    geom_central_zone() +
-    theme_void() + guides(fill=FALSE)
+  res <- ggplot() + 
+    geom_box_room() +
+    geom_central_zone(zone) +
+    theme_void() + 
+    guides(fill=FALSE)
+  return(res)
+}
+
+background_path_plot <- function(background = apparatus_image_path()){
+  res <- ggplot() +
+    geom_navr_background(background, BOX_ROOM_REAL$x, BOX_ROOM_REAL$y) + 
+    theme_void() + 
+    guides(fill=FALSE)
   return(res)
 }
 ## STYLES -----
