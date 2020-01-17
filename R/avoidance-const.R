@@ -1,5 +1,5 @@
 BOX_ROOM_REAL <- list(x = c(0, 420), y = c(0, 420))
-BOX_ROOM <- list(x = c(10, 420), y = c(80, 340))
+BOX_ROOM <- list(x = c(0, 420), y = c(80, 340))
 
 box_room_size <- function(type = "animal"){
   if(type == "animal"){
@@ -8,4 +8,9 @@ box_room_size <- function(type = "animal"){
   if (type == "real"){
     return(BOX_ROOM_REAL)
   }
+}
+
+## IMAGES
+apparatus_image_path <- function(rel = "."){
+  file.path(rel, "images/apparatus.png")
 }

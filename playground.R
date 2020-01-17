@@ -36,3 +36,5 @@ filepath <- "../data/run35-house-session/"
 obj <- load_folder(filepath)
 obj <- add_areas(obj)
 session_results(obj)
+create_heatmap(obj$animal_1, alpha=`..density..`)
+heatmap_theme()
