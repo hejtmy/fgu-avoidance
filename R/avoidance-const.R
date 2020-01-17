@@ -9,3 +9,9 @@ box_room_size <- function(type = "animal"){
     return(BOX_ROOM_REAL)
   }
 }
+
+
+## IMAGES
+aparatus_image_path <- function(rel = "."){
+  file.path(rel, "images/apparatus.png")
+}

@@ -11,35 +11,40 @@
 #' @export
 #'
 #' @examples
-create_heatmap <- function(obj, bins = 100, geom = "polygon", ...){
+create_heatmap <- function(obj, bins = 100, background = aparatus_image_path(), ...){
   UseMethod("create_heatmap")
 }
 #' @export
-create_heatmap.avoidance.single <- function(obj, bins = 50, geom = "polygon", ...){
-  plt <- create_heatmap_plot(obj, bins, geom, ...)
+create_heatmap.avoidance.single <- function(obj, bins = 100, background = aparatus_image_path(), ...){
+  plt <- create_heatmap_plot(obj, bins, background, ...)
   return(plt)
 }
 #' @export
-create_heatmap.avoidance.multiple <- function(obj, bins = 50, geom = "polygon", ...){
+create_heatmap.avoidance.multiple <- function(obj, bins = 100, background = aparatus_image_path(), ...){
   obj <- combine_all(obj)
-  return(create_heatmap.avoidance.single(obj, bins, geom))
+  return(create_heatmap.avoidance.single(obj, bins, background, ...))
 }
 
-create_heatmap_plot <- function(obj, bins, geom, ...){
-  df <- get_position_table(obj)
-  size <- box_room_size()
-  plt <- ggplot(df, aes(x = position_x, y = position_y)) 
-  if(geom == "polygon") plt <- plt + 
-    stat_density2d(aes(fill=..level..), geom = geom, bins = bins, ...) +
-    lims (x=c(0,500), y = c(0,500))
-  if(geom == "raster") plt <- plt + 
-    stat_density2d(aes(fill=..density..), geom = geom, bins = bins, contour = FALSE, ...)
+create_heatmap_plot <- function(obj, bins, background, ...){
+  if(!is.null(background)){
+    size <- box_room_size(type = "real")
+    plt <- ggplot() +
+      geom_navr_background(background, size$x, size$y)
+  } else {
+    size <- box_room_size()
+    plt <- ggplot()
+  }
   plt <- plt +
+    geom_navr_heatmap(obj$position, bins, ...) +
     gradient_style() +
+    lims (x=c(0,500), y = c(0,500)) +
     guides(fill=FALSE, alpha = FALSE, level=FALSE) +
     coord_cartesian(xlim = size$x, ylim = size$y) +
     theme_bw() +
     heatmap_theme()
+  if(!is.null(background)){
+    plt <- plt + theme(panel.background = element_rect(fill = "transparent")) 
+  }
   return(plt) 
 }
 
