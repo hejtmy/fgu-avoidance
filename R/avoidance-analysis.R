@@ -97,3 +97,43 @@ collect_crosses.navr <- function(obj, to, from, between_allowed){
   return(res)
   
 }
+
+## AREA PRESENCE -------
+
+#' Returns times of animal presence in each area of interest
+#'
+#' @param obj avoidance.single object
+#'
+#' @return data.frame with times and animals location
+#' @export
+#'
+#' @examples
+get_area_presence <- function(obj){
+  if(!("avoidance.single" %in% class(obj))){
+    warning("The object is not avoidance.single object")
+    return(NULL)
+  }
+  if(!has_areas(obj$position)){
+    warning("The object has not areas added. Have you run add_areas?")
+    return(NULL)
+  }
+  crosses <- collect_crosses(obj)
+  
+  ordered <- crosses[order(crosses$time),]
+  # if there were no crosses altogether, we create a fake crosses with the start area
+  if(nrow(ordered) < 1){
+    start_area <- get_position_table(obj)[1, 'area']
+    ordered <- data.frame(time = 0, from=start_area, 
+                          to = start_area, stringsAsFactors = FALSE)
+  }
+  # starts at 0 until last cross
+  time_start <- c(0, ordered$time)
+  # starts at first frossing until the end fo the recording  
+  time_end <- c(ordered$time, tail(obj$position$data$timestamp, 1))
+  # Aftr the last "from" is made, the last location from time end till the recording
+  # end is the opposite location than was just left, 
+  location <- c(ordered$from, tail(ordered$to, 1))
+  df <- data.frame(where = location, start = time_start, end = time_end)
+  df$time_spent <- df$end - df$start
+  return(df)
+}
