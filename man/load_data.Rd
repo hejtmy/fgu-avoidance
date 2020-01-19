@@ -2,13 +2,16 @@
 % Please edit documentation in R/avoidance-loading.R
 \name{load_data}
 \alias{load_data}
-\title{Title}
+\title{Load data from a particular filepath}
 \usage{
 load_data(filepath)
 }
 \arguments{
-\item{filepath}{}
+\item{filepath}{path to the data.csv}
+}
+\value{
+avoidance.single object
 }
 \description{
-Title
+Load data from a particular filepath
 }

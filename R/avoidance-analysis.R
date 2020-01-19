@@ -98,6 +98,33 @@ collect_crosses.navr <- function(obj, to, from, between_allowed){
   
 }
 
+#' Creates a vector of length exp_length which contains number of crosses given area presence
+#'
+#' @param df_presence presence table calculated with \link{\code{get_area_presence}}
+#' @param exp_length expected length of the experiment in seconds
+#'
+#' @return vector of length exp_length with number of crosses at that point
+#' @export
+#'
+#' @examples
+create_crosses_vector <- function(df_presence, exp_length = 3600){
+  starting_location <- df_presence$where[1]
+  ts_crosses <- c()
+  n_crosses <- 0
+  for(i in 1:nrow(df_presence)){
+    line <- df_presence[i,]
+    if(line$where != starting_location){
+      n_crosses <- n_crosses + 1
+    }
+    ts_crosses <- c(ts_crosses, rep(n_crosses, round(line$end) - round(line$start)))
+  }
+  if(length(ts_crosses) != exp-length){
+    last_element <- ts_crosses[length(ts_crosses)]
+    ts_crosses <- c(ts_crosses, rep(last_element, exp_length - length(ts_crosses)))
+  }
+  return(ts_crosses)
+}
+
 ## AREA PRESENCE -------
 
 #' Returns times of animal presence in each area of interest

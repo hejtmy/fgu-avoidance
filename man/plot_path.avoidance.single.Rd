@@ -4,10 +4,19 @@
 \alias{plot_path.avoidance.single}
 \title{Creates a path graph of a single trial}
 \usage{
-\method{plot_path}{avoidance.single}(obj, zone = central_zone())
+\method{plot_path}{avoidance.single}(obj, center = central_zone(),
+  background = NULL, color = "#98959a", size = 1.25, ...)
 }
 \arguments{
-\item{obj}{}
+\item{obj}{avoidance single object}
+
+\item{center}{}
+
+\item{background}{}
+
+\item{color}{}
+
+\item{size}{}
 
 \item{...}{}
 }

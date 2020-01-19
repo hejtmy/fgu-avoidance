@@ -4,16 +4,17 @@
 \alias{create_heatmap}
 \title{Creates heatmap from passed object}
 \usage{
-create_heatmap(obj, bins = 100, geom = "polygon", ...)
+create_heatmap(obj, bins = 100, background = apparatus_image_path(),
+  ...)
 }
 \arguments{
 \item{obj}{object to calculate heatmap from}
 
 \item{bins}{number of bins}
 
-\item{geom}{which geom to use? possibile are "polygon"(default) or "raster"}
-
 \item{...}{optional params to the stat_density2d geom}
+
+\item{geom}{which geom to use? possibile are "polygon"(default) or "raster"}
 }
 \description{
 Creates heatmap from passed object

@@ -7,7 +7,7 @@
 load_folder(folder)
 }
 \arguments{
-\item{folder}{}
+\item{folder}{folder with multiple animals loaded}
 }
 \description{
 Loads all files from a folder and combines to a large table which is then processed
