@@ -100,7 +100,7 @@ collect_crosses.navr <- function(obj, to, from, between_allowed){
 
 #' Creates a vector of length exp_length which contains number of crosses given area presence
 #'
-#' @param df_presence presence table calculated with \link{\code{get_area_presence}}
+#' @param df_presence presence table calculated with \code{\link{get_area_presence}}
 #' @param exp_length expected length of the experiment in seconds
 #'
 #' @return vector of length exp_length with number of crosses at that point

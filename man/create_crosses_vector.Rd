@@ -7,7 +7,7 @@
 create_crosses_vector(df_presence, exp_length = 3600)
 }
 \arguments{
-\item{df_presence}{presence table calculated with \link{\code{get_area_presence}}}
+\item{df_presence}{presence table calculated with \code{\link{get_area_presence}}}
 
 \item{exp_length}{expected length of the experiment in seconds}
 }
