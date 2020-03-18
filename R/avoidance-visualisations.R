@@ -38,7 +38,6 @@ create_heatmap_plot <- function(obj, bins, background, ...){
     geom_navr_heatmap(obj$position, bins, ...) +
     gradient_style() +
     lims(x=c(0,500), y = c(0,500)) +
-    guides(fill=FALSE, alpha = FALSE, level=FALSE) +
     coord_cartesian(xlim = size$x, ylim = size$y) +
     theme_bw() +
     heatmap_theme()
