@@ -13,7 +13,7 @@ Depends:
   R (>= 3.1.0),
   navr
 Suggests: 
-    testthat,
+    testthat (>= 2.1.0),
     knitr,
     rmarkdown,
     covr

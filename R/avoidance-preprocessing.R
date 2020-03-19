@@ -23,6 +23,7 @@ convert_table_to_objects <- function(df){
   for(animal in animals){
     obj <- list()
     df_animal <- filter_animal(df, animal)
+    rownames(df_animal) <- 1:nrow(df_animal)
     position <- as.navr(df_animal)
     obj$position <- position
     class(obj) <- append(class(obj), "avoidance.single")
@@ -61,14 +62,17 @@ create_animal_code <- function(num){
 }
 
 add_unique_animal_code <- function(df_new, df_old){
-  anim_code <- df_new$AnimNo[1]
+  anim_code <- unique(df_new$AnimNo)
   existing_codes <- unique(df_old$AnimNo)
   enum <- 2
-  while(anim_code %in% existing_codes){
-    anim_code <- paste0(anim_code, "_", enum)
-    enum <- enum + 1
+  for(code in anim_code){
+    new_code <- code
+    while(new_code %in% existing_codes){
+      new_code <- paste0(code, "_", enum)
+      enum <- enum + 1
+    }
+    df_new$AnimNo[df_new$AnimNo == code] <- new_code
   }
-  df_new$AnimNo <- anim_code
   return(df_new)
 }
 
