@@ -8,3 +8,7 @@
 .Rhistory
 .RData
 .Ruserdata
+
+## pkgdown documentation
+!docs/*
+!docs/*/*
