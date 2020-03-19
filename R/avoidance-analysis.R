@@ -1,10 +1,10 @@
-## ANALYSIS ----
+# ANALYSIS ----
 
 #' Basic results to give a report from a single session
 #'
-#' @param obj 
+#' @param obj either avoidance.single or avoidance.multiple object
 #'
-#' @return
+#' @return data frame with basic session results
 #' @export
 #'
 #' @examples
@@ -47,9 +47,10 @@ session_results.avoidance.single <- function(obj){
   return(res)
 }
 
-# FREEZING
+# FREEZING ----
 
 # CROSSES ------
+
 #' Collects information about each cross in given object
 #'
 #' @param obj avoidance single or multiple object with default areas added. See \code{\link{`add_areas`}()
@@ -125,7 +126,7 @@ create_crosses_vector <- function(df_presence, exp_length = 3600){
   return(ts_crosses)
 }
 
-## AREA PRESENCE -------
+# AREA PRESENCE -------
 
 #' Returns times of animal presence in each area of interest
 #'

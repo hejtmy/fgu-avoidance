@@ -7,7 +7,10 @@
 session_results(obj)
 }
 \arguments{
-\item{obj}{}
+\item{obj}{either avoidance.single or avoidance.multiple object}
+}
+\value{
+data frame with basic session results
 }
 \description{
 Basic results to give a report from a single session
