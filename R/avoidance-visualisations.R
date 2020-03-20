@@ -70,7 +70,7 @@ plot_path.avoidance.single <- function(obj, background = apparatus_image_path(),
     plt <- background_path_plot(background)
   } else {
     size <- box_room_size(type = "animal")
-    plt <- base_path_plot(center)
+    plt <- base_path_plot()
   }
   if(center) plt <- plt + geom_central_zone()
   plt <- plt +
