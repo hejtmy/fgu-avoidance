@@ -84,17 +84,21 @@ plot_path.avoidance.single <- function(obj, center = central_zone(), background 
 #'
 #' @param obj avoidance.single
 #' @param iCrosses indices of crossings. Can be obtained with \code{\link{collect_crosses}}
-#' @param timewindow time in seconds 
+#' @param timewindow numeric(1 or 2) time in seconds defining window before and after the crossing to plot. 
+#' E.g. tiemwindow = 1 will plot 1 second before and after the time of the cross completed. timewindow c(1,2)
+#' will plot time 1s before and 2s after the cross. Defaults to 1
 #'
-#' @return
+#' @return ggpplot visualisation to animal crosses
 #' @export
 #'
 #' @examples
-plot_crosses <- function(obj, iCrosses, timewindow = 10){
+plot_crosses <- function(obj, iCrosses, timewindow = 1){
   plt <- base_path_plot()
   colors <- rainbow(length(iCrosses))
+  if(length(timewindow) == 1) timewindow <- rep(timewindow[1],2)
   for(i in 1:length(iCrosses)){
-    times <- range(obj$position$data$timestamp[(iCrosses[i] - 10):(iCrosses[i] + 10)])
+    cross_time <- obj$position$data$timestamp[iCrosses[i]]
+    times <- c(cross_time-timewindow[1], cross_time+timewindow[2])
     cross <- filter_times(obj$position, times)
     plt <- plt + geom_navr_path(cross, color = colors[i], size = 1.25)
   }
