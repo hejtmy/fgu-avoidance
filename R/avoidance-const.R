@@ -11,6 +11,14 @@ box_room_size <- function(type = "animal"){
 }
 
 ## IMAGES
-apparatus_image_path <- function(rel = "."){
-  file.path(rel, "images/apparatus.png")
+#' Retuns path to the apparatus image
+#'
+#' @param darkside which zone should be dark? Defaults to "right"
+#'
+#' @export
+apparatus_image_path <- function(darkside = RIGHT_ZONE_NAME){
+  if(darkside == LEFT_ZONE_NAME) img <- "apparatus-flip.png"
+  if(darkside == RIGHT_ZONE_NAME) img <- "apparatus.png"
+  pth <- file.path(system.file("extdata", package = "fgu.avoidance"), "images", img)
+  return(pth)
 }

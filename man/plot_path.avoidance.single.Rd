@@ -4,19 +4,20 @@
 \alias{plot_path.avoidance.single}
 \title{Creates a path graph of a single trial}
 \usage{
-\method{plot_path}{avoidance.single}(obj, center = central_zone(),
-  background = NULL, color = "#98959a", size = 1.25, ...)
+\method{plot_path}{avoidance.single}(obj,
+  background = apparatus_image_path(), center = FALSE,
+  color = "#98959a", size = 1.25, ...)
 }
 \arguments{
 \item{obj}{avoidance single object}
 
-\item{center}{}
+\item{background}{path to a backgroud image to be plotted. Use \code{\link{apparatus_image_path}} to construct or provide your own.}
 
-\item{background}{}
+\item{center}{logical determining if the central zone should be plotted}
 
-\item{color}{}
+\item{color}{color of the path}
 
-\item{size}{}
+\item{size}{path size}
 
 \item{...}{}
 }

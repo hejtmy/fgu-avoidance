@@ -5,6 +5,7 @@
 #' @param obj object to calculate heatmap from
 #' @param bins number of bins
 #' @param geom which geom to use? possibile are "polygon"(default) or "raster"
+#' @param background path to a backgroud image to be plotted. Use \code{\link{apparatus_image_path}} to construct or provide your own. 
 #' @param ... optional params to the stat_density2d geom
 #'
 #' @return
@@ -52,27 +53,27 @@ create_heatmap_plot <- function(obj, bins, background, ...){
 #' Creates a path graph of a single trial
 #'
 #' @param obj avoidance single object
-#' @param center 
-#' @param background 
-#' @param color 
-#' @param size 
+#' @param background path to a backgroud image to be plotted. Use \code{\link{apparatus_image_path}} to construct or provide your own. 
+#' @param center logical determining if the central zone should be plotted
+#' @param color color of the path
+#' @param size path size
 #' @param ... 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-plot_path.avoidance.single <- function(obj, center = central_zone(), background = NULL, 
+plot_path.avoidance.single <- function(obj, background = apparatus_image_path(), center = FALSE, 
                                        color = "#98959a", size = 1.25, ...){
   if(!is.null(background)){
     size <- box_room_size(type = "real")
-    plt <- background_path_plot(background) 
+    plt <- background_path_plot(background)
   } else {
     size <- box_room_size(type = "animal")
     plt <- base_path_plot(center)
   }
+  if(center) plt <- plt + geom_central_zone()
   plt <- plt +
-    geom_central_zone(center) + 
     geom_navr_path(obj$position, size = 1.25, color = "#98959a") +
     coord_cartesian(xlim = size$x, ylim = size$y)
   return(plt)
@@ -161,7 +162,7 @@ base_path_plot <- function(zone = central_zone()){
   return(res)
 }
 
-background_path_plot <- function(background = apparatus_image_path()){
+background_path_plot <- function(background = apparatus_image_path(), darkside = RIGHT_ZONE_NAME){
   res <- ggplot() +
     geom_navr_background(background, BOX_ROOM_REAL$x, BOX_ROOM_REAL$y) + 
     theme_void() + 

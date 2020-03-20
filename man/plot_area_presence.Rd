@@ -4,10 +4,12 @@
 \alias{plot_area_presence}
 \title{Plots an image of area presence for avoidance.single}
 \usage{
-plot_area_presence(obj)
+plot_area_presence(obj, darkside = RIGHT_ZONE_NAME)
 }
 \arguments{
 \item{obj}{avoidance.single object}
+
+\item{darkside}{which side is the dark? Can be either "left" or "right". Defaults to "right"}
 }
 \value{
 ggplot constructed with geom_rect

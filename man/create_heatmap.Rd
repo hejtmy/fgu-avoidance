@@ -12,6 +12,8 @@ create_heatmap(obj, bins = 100, background = apparatus_image_path(),
 
 \item{bins}{number of bins}
 
+\item{background}{path to a backgroud image to be plotted. Use \code{\link{apparatus_image_path}} to construct or provide your own.}
+
 \item{...}{optional params to the stat_density2d geom}
 
 \item{geom}{which geom to use? possibile are "polygon"(default) or "raster"}
