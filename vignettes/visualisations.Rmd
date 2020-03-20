@@ -1,0 +1,55 @@
+---
+title: "Visualisations"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{visualisations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(fgu.avoidance)
+animals <- load_data(file.path("..", "inst", "extdata", "run", "three-animals.csv"))
+animal <- animals$animal_8
+```
+
+
+## Plotting animal path during the trial
+```{r}
+plot_path(animal)
+```
+
+```{r}
+plot_path(animal, center = TRUE, background = apparatus_image_path(darkside = "left"))
+```
+
+And we can plot without the background image
+
+```{r}
+plot_path(animal, background = NULL)
+```
+## Plotting area presence
+
+```{r}
+plot_area_presence(animal, darkside = "right")
+```
+
+
+```{r}
+plot_area_presence(animal, darkside = "right")
+```
+
+## Plotting crossings
+
+There is a quick function to plot animal crossings
+```{r}
+crosses <- collect_crosses(animal)
+plot_crosses(animal, crosses$index, timewindow = 1)
+```
