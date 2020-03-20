@@ -27,6 +27,7 @@ convert_table_to_objects <- function(df){
     position <- as.navr(df_animal)
     obj$position <- position
     class(obj) <- append(class(obj), "avoidance.single")
+    obj <- add_areas(obj)
     res[[animal]] <- obj
   }
   class(res) <- append(class(res), "avoidance.multiple")
@@ -96,7 +97,8 @@ add_areas.avoidance.multiple <- function(obj, areas = default_zones()){
 
 #' Adds areas if ubterest into the positioning data
 #' @param obj avoidance.single object
-#' @param areas list of areas of interest to add. Defaults to implemented left, central and right areas
+#' @param areas list of areas of interest to add. Defaults to implemented left, central and right areas 
+#' in the function `default_zones`
 #'
 #' @return object which was passed with added areas
 #' @export
