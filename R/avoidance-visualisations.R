@@ -110,19 +110,20 @@ plot_crosses <- function(obj, iCrosses, timewindow = 1){
 #' Plots an image of area presence for avoidance.single 
 #'
 #' @param obj avoidance.single object
+#' @param darkside which side is the dark? Can be either "left" or "right". Defaults to "right"
 #'
 #' @return ggplot constructed with geom_rect 
 #' @export
 #'
 #' @examples
-plot_area_presence <- function(obj){
+plot_area_presence <- function(obj, darkside = RIGHT_ZONE_NAME){
   df <- collect_area_presence(obj)
   if(is.null(df)) return(NULL)
   plt <- ggplot(df) +
     geom_rect(aes(xmin = start, xmax = end, ymin = -0, ymax = 1, fill = where)) +
     #geom_text(aes(x=(start+end)/2, y = 1.5 + 5/4*(where=="left"), label = where), check_overlap = TRUE) +
     xlab("Time since start") +
-    scale_fill_manual(values = area_presence_scale()) +
+    scale_fill_manual(values = area_presence_scale(darkside)) +
     coord_fixed(ratio = 60) + ylim(0,6) +
     theme_classic() +
     guides(fill = guide_legend(nrow=1, title="")) +
@@ -181,6 +182,8 @@ heatmap_theme <- function(){
 heatmap_color <- function(){
   return(rev(rainbow(100, start=0, end=0.7)))
 }
-area_presence_scale <- function(){
-  return(rev(c("#e2e2e2", "#000000")))
+area_presence_scale <- function(darkside){
+  presence_colors <- c("#e2e2e2", "#000000")
+  presence_colors <- setNames(presence_colors, c(other_side_name(darkside), darkside))
+  return(presence_colors)
 }

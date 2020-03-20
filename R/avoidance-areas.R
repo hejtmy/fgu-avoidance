@@ -3,6 +3,12 @@ LEFT_ZONE_NAME = "left"
 RIGHT_ZONE_NAME = "right"
 ROOM_ZONE_NAME = "room"
 
+other_side_name <- function(side){
+  if(side == RIGHT_ZONE_NAME) other_side <- LEFT_ZONE_NAME
+  if(side == LEFT_ZONE_NAME) other_side <- RIGHT_ZONE_NAME
+  return(other_side)
+}
+
 #' @export
 default_zones <- function(type = "animal", central_size = 20){
   return(list(
