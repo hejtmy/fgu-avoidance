@@ -11,6 +11,7 @@ default_zones <- function(type = "animal", central_size = 20){
     right = right_zone()
   ))
 }
+
 #' @export
 room_zone <- function(type = "animal"){
   box <- box_room_size(type)
@@ -38,6 +39,7 @@ left_zone <- function(){
                         points = points)
   return(area)
 }
+
 #' @export
 right_zone <- function(){
   room <- room_zone()

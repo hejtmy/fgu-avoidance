@@ -53,9 +53,12 @@ session_results.avoidance.single <- function(obj){
 
 #' Collects information about each cross in given object
 #'
+#' @description Uses `get_area_visits` form the package `navr` under the hood. 
+#' 
 #' @param obj avoidance single or multiple object with default areas added. See \code{\link{`add_areas`}()
 #'
-#' @return dataframe with results
+#' @return dataframe with *from, to, time, index* columns. From defines whihc area was the cross from, to
+#' which area it was made to. Time is the time of the cross and index is the index in the position data 
 #' @export
 #'
 #' @examples
@@ -82,8 +85,12 @@ collect_crosses.avoidance.single <- function(obj){
     warning("Areas have not been collectd. Have you run add_areas?")
     return(NULL)
   }
-  to_left_from_right <- collect_crosses.navr(pos, to = LEFT_ZONE_NAME, from = RIGHT_ZONE_NAME, between_allowed = 1)
-  to_right_from_left <- collect_crosses.navr(pos, to = RIGHT_ZONE_NAME, from = LEFT_ZONE_NAME, between_allowed = 1)
+  to_left_from_right <- collect_crosses.navr(pos, to = LEFT_ZONE_NAME, 
+                                             from = RIGHT_ZONE_NAME, 
+                                             between_allowed = 1)
+  to_right_from_left <- collect_crosses.navr(pos, to = RIGHT_ZONE_NAME, 
+                                             from = LEFT_ZONE_NAME,
+                                             between_allowed = 1)
   res <- rbind.data.frame(to_right_from_left, to_left_from_right)
   return(res)
 }

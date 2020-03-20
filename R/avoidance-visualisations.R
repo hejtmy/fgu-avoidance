@@ -80,16 +80,17 @@ plot_path.avoidance.single <- function(obj, center = central_zone(), background 
 
 ## CROSSES -----
 
-#' plots crosses 
+#' Plots paths for crossings 
 #'
-#' @param obj 
-#' @param iCrosses 
+#' @param obj avoidance.single
+#' @param iCrosses indices of crossings. Can be obtained with \code{\link{collect_crosses}}
+#' @param timewindow time in seconds 
 #'
 #' @return
 #' @export
 #'
 #' @examples
-plot_crosses <- function(obj, iCrosses){
+plot_crosses <- function(obj, iCrosses, timewindow = 10){
   plt <- base_path_plot()
   colors <- rainbow(length(iCrosses))
   for(i in 1:length(iCrosses)){
