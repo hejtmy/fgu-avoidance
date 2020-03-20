@@ -18,14 +18,14 @@ reference:
   contents: 
   - '`get_position_table`'
   - '`filter_coordinates`'
-  - '`collect_crosses`'
   
 - title: Analysis
   desc: Functions analysing animal behaviour
   contents:
   - '`session_results`'
-  - '`get_area_presence`'
   - '`create_crosses_vector`'
+  - '`collect_area_presence`'
+  - '`collect_crosses`'
 
 - title: Visualisations
   desc: ~

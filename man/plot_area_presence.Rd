@@ -2,13 +2,16 @@
 % Please edit documentation in R/avoidance-visualisations.R
 \name{plot_area_presence}
 \alias{plot_area_presence}
-\title{PLots an image of area presence for avoidance.single}
+\title{Plots an image of area presence for avoidance.single}
 \usage{
 plot_area_presence(obj)
 }
 \arguments{
 \item{obj}{avoidance.single object}
 }
+\value{
+ggplot constructed with geom_rect
+}
 \description{
-PLots an image of area presence for avoidance.single
+Plots an image of area presence for avoidance.single
 }

@@ -7,8 +7,9 @@
 collect_crosses(obj)
 }
 \value{
-dataframe with results
+dataframe with *from, to, time, index* columns. From defines whihc area was the cross from, to
+which area it was made to. Time is the time of the cross and index is the index in the position data
 }
 \description{
-Collects information about each cross in given object
+Uses `get_area_visits` form the package `navr` under the hood.
 }

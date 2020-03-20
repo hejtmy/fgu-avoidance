@@ -2,15 +2,22 @@
 % Please edit documentation in R/avoidance-visualisations.R
 \name{plot_crosses}
 \alias{plot_crosses}
-\title{plots crosses}
+\title{Plots paths for crossings}
 \usage{
-plot_crosses(obj, iCrosses)
+plot_crosses(obj, iCrosses, timewindow = 1)
 }
 \arguments{
-\item{obj}{}
+\item{obj}{avoidance.single}
 
-\item{iCrosses}{}
+\item{iCrosses}{indices of crossings. Can be obtained with \code{\link{collect_crosses}}}
+
+\item{timewindow}{numeric(1 or 2) time in seconds defining window before and after the crossing to plot. 
+E.g. tiemwindow = 1 will plot 1 second before and after the time of the cross completed. timewindow c(1,2)
+will plot time 1s before and 2s after the cross. Defaults to 1}
+}
+\value{
+ggpplot visualisation to animal crosses
 }
 \description{
-plots crosses
+Plots paths for crossings
 }

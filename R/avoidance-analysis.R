@@ -143,7 +143,7 @@ create_crosses_vector <- function(df_presence, exp_length = 3600){
 #' @export
 #'
 #' @examples
-get_area_presence <- function(obj){
+collect_area_presence <- function(obj){
   if(!("avoidance.single" %in% class(obj))){
     warning("The object is not avoidance.single object")
     return(NULL)

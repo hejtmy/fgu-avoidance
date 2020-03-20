@@ -107,16 +107,16 @@ plot_crosses <- function(obj, iCrosses, timewindow = 1){
 
 ## AREA PRESENCE -----
 
-#' PLots an image of area presence for avoidance.single 
+#' Plots an image of area presence for avoidance.single 
 #'
 #' @param obj avoidance.single object
 #'
-#' @return
+#' @return ggplot constructed with geom_rect 
 #' @export
 #'
 #' @examples
 plot_area_presence <- function(obj){
-  df <- get_area_presence(obj)
+  df <- collect_area_presence(obj)
   if(is.null(df)) return(NULL)
   plt <- ggplot(df) +
     geom_rect(aes(xmin = start, xmax = end, ymin = -0, ymax = 1, fill = where)) +
