@@ -21,8 +21,8 @@ load_folder <- function(folder){
 
 #' Load data from a particular filepath
 #'
-#' @param filepath path to the data.csv
-#'
+#' @param filepath Either filepath or a text
+#' @param text althernatively the data can be loaded from loaded text 
 #' @return avoidance.single object
 #' @export
 #'
@@ -32,6 +32,21 @@ load_data <- function(filepath){
   df <- load_table(filepath)
   res <- convert_table_to_objects(df)
   return(res)
+}
+
+#' Loads text data from already loaded text
+#'
+#' @param text 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+load_text_data <- function(text){
+  df <- read.table(text = text, sep=";", dec=",", skip=1, header=TRUE)
+  df <- process_table(df)
+  df <- convert_table_to_objects(df)
+  return(df)
 }
 
 load_table <- function(filepath){

@@ -1,0 +1,30 @@
+---
+title: "Area presence and crosses"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Area-presence-and-crosses}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(fgu.avoidance)
+animals <- load_data(file.path("..", "inst", "extdata", "run", "three-animals.csv"))
+animal <- animals$animal_8
+```
+
+To analyse summatively where the animal was at all times, we can use the `get_area_presence` function.
+
+```{r}
+presence <- collect_area_presence(animal)
+knitr::kable(head(presence))
+```
+
+## Crosses

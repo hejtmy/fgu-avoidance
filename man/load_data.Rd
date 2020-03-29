@@ -7,7 +7,9 @@
 load_data(filepath)
 }
 \arguments{
-\item{filepath}{path to the data.csv}
+\item{filepath}{Either filepath or a text}
+
+\item{text}{althernatively the data can be loaded from loaded text}
 }
 \value{
 avoidance.single object
