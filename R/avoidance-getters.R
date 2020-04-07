@@ -1,3 +1,19 @@
+#' Filter the fgu.avoidance object for chosen animals
+#'
+#' @param obj avoidance.multiple object
+#' @param codes animal codes as they appear in the object
+#'
+#' @return filtered avoidance.multiple object or empty list
+#' @export
+#'
+#' @examples
+filter_animals <- function(obj, codes){
+  selection <- intersect(names(obj), codes)
+  res <- obj[selection]
+  class(res) <- append(class(res), 'avoidance.multiple')
+  return(res)
+}
+
 #' Returns positioning data
 #'
 #' @param obj avoidance.single object

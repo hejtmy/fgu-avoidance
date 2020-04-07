@@ -1,4 +1,4 @@
-filepath <- "example-data/three-animals.CSV"
+filepath <- "inst/extdata/run/three-animals.CSV"
 library(dplyr)
 library(ggplot2)
 library(fgu.avoidance)
