@@ -17,7 +17,6 @@ reference:
   desc: Function allowing access to some hidden 
   contents: 
   - '`get_position_table`'
-  - '`filter_coordinates`'
   
 - title: Analysis
   desc: Functions analysing animal behaviour

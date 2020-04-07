@@ -7,7 +7,7 @@
 #'
 #' @examples
 as.navr <- function(df){
-  df <- filter_coordinates(df)
+  df <- filter_df_coordinates(df)
   df <- df[, c("Time", "Parameter1", "Parameter2")]
   colnames(df) <- c("timestamp", "position_x", "position_y")
   df$timestamp <- df$timestamp/1000
@@ -22,7 +22,7 @@ convert_table_to_objects <- function(df){
   animals <- unique(df$AnimNo)
   for(animal in animals){
     obj <- list()
-    df_animal <- filter_animal(df, animal)
+    df_animal <- filter_df_animal(df, animal)
     rownames(df_animal) <- 1:nrow(df_animal)
     position <- as.navr(df_animal)
     obj$position <- position
@@ -40,20 +40,12 @@ process_table <- function(df){
   return(df)
 }
 
-#' Filter out the coordinates from the loaded data
-#'
-#' @param df
-#'
-#' @return
-#' @export
-#'
-#' @examples
 filter_coordinates <- function(df){
   res <- df[df$Event == "Coordinate",]
   return(res)
 }
 
-filter_animal <- function(df, animal_code){
+filter_df_animal <- function(df, animal_code){
   res <- df[df$AnimNo == animal_code, ]
   return(res)
 }
