@@ -112,12 +112,13 @@ plot_crosses <- function(obj, iCrosses, timewindow = 1){
 #'
 #' @param obj avoidance.single object
 #' @param darkside which side is the dark? Can be either "left" or "right". Defaults to "right"
-#'
+#' @param scale defines x scale through coord_fixed(ratio = scale). Larger values make the graph narrower
+#' 
 #' @return ggplot constructed with geom_rect 
 #' @export
 #'
 #' @examples
-plot_area_presence <- function(obj, darkside = RIGHT_ZONE_NAME){
+plot_area_presence <- function(obj, darkside = RIGHT_ZONE_NAME, scale = 60){
   df <- collect_area_presence(obj)
   if(is.null(df)) return(NULL)
   plt <- ggplot(df) +
@@ -125,7 +126,7 @@ plot_area_presence <- function(obj, darkside = RIGHT_ZONE_NAME){
     #geom_text(aes(x=(start+end)/2, y = 1.5 + 5/4*(where=="left"), label = where), check_overlap = TRUE) +
     xlab("Time since start") +
     scale_fill_manual(values = area_presence_scale(darkside)) +
-    coord_fixed(ratio = 60) + ylim(0,6) +
+    coord_fixed(ratio = scale) + ylim(0,6) +
     theme_classic() +
     guides(fill = guide_legend(nrow=1, title="")) +
     theme(axis.line.y = element_blank(),

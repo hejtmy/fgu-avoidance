@@ -40,7 +40,7 @@ process_table <- function(df){
   return(df)
 }
 
-filter_coordinates <- function(df){
+filter_df_coordinates <- function(df){
   res <- df[df$Event == "Coordinate",]
   return(res)
 }
