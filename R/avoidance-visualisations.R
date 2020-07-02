@@ -1,4 +1,4 @@
-# HEATMAPS -----
+## HEATMAPS -----
 
 #' Creates heatmap from passed object
 #'
