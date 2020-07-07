@@ -100,3 +100,19 @@ add_areas.avoidance.single <- function(obj, areas = default_zones()){
   obj$position <- navr::add_areas(obj$position, areas)
   return(obj)
 }
+
+## NAVR wrappers ------
+
+#' @importFrom navr smooth_positions
+#' @export
+smooth_positions.avoidance.single <- function(obj, ...){
+  obj$position <- smooth_positions(obj$position, ...)
+  return(obj)
+}
+
+#' @importFrom navr smooth_speed
+#' @export
+smooth_speed.avoidance.single <- function(obj, ...){
+  obj$position <- smooth_speed(obj$position, ...)
+  return(obj)
+}
