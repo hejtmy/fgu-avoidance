@@ -20,7 +20,7 @@ a <- tab %>% filter(Event == "Coordinate") %>%
 
 prep <- data.frame(x = rep(a$Parameter1, round(a$time_diff/100, 0)), y= rep(a$Parameter2, round(a$time_diff/100, 0)))
 
-ggplot(prep, aes(x, y)) + 
+ggplot(prep, aes(x, y)) +
   scale_fill_gradientn(colours=rev(rainbow(100, start=0, end=0.75))) +
   stat_density2d(aes(fill=..density..), geom = 'raster', contour = FALSE) +
   geom_path(color = "white", alpha = 0.3) + theme_bw()
@@ -42,17 +42,25 @@ heatmap_theme()
 filepath <- "inst/extdata/run/rat9.CSV"
 obj <- load_data(filepath)
 nav <- obj$animal_9$position
-plot_speed(nav)
+
 nav <- remove_unreal_speeds(nav, type="value", cutoff=100)
 nav_smooth <- smooth_speed(nav, type="median", points=9)
 plot_speed(nav_smooth)
 freezes <- search_stops(nav_smooth, speed_threshold = 10, min_duration = 2)
-
-plot_speed(nav) +
+plot_speed(nav_smooth) +
   geom_navr_timeseries_events(freezes$time_since_start,
                               durations = freezes$duration,
-                              color = "red", size=2)
-  
-freezes_times <- rbind(freezes$time, freezes$time+freezes$duration)
+                              color = "red", size=2) +
+  geom_hline(yintercept=10)
+
+freezes <- collect_freezes(obj$animal_9, speed_threshold = 1, min_duration = 2)
+plot_speed(obj$animal_9$position) +
+   geom_navr_timeseries_events(freezes$time_since_start,
+                              durations = freezes$duration,
+                              color = "red", size=2) +
+  geom_hline(yintercept=10)
+ 
+
+freezes_times <- rbind(freezes$time, freezes$time + freezes$duration)
 plot_path(obj$animal_9) +
   geom_navr_path_segments(nav, freezes_times)

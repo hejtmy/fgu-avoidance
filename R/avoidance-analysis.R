@@ -48,7 +48,35 @@ session_results.avoidance.single <- function(obj){
 }
 
 # FREEZING ----
+#' Searches for episodes of freezing behaviour
+#'
+#' @description This function is basically a complex wrapper around the navr::search_stops
+#' function. The goal is to implement stable preprocessing nad smoothing here, so that 
+#' it is not a mere wrapper around the navr::search_stops function
+#'
+#' @param obj valid object. Currently only avoidance single is recommended. The 
+#' navr positioning data should optimally be smoothed for the best results to be
+#' obtained. Use 
+#' @param min_duration minimal duration of the freeze
+#' @param speed_threshold what movement speed is considered unmoving (there is still 
+#' some movement in the machine)
+#' @param ... other optional parameters. see `navr::search_stops`` for the complete set
+#'
+#' @return
+#' @export
+#'
+#' @examples
+collect_freezes <- function(obj, min_duration, speed_threshold, ...){
+  UseMethod("collect_freezes")
+}
 
+#' @describeIn collect_freezes Implementation for avoidance.single object
+#' @export
+collect_freezes.avoidance.single <- function(obj, min_duration, speed_threshold, ...){
+  freezes <- search_stops(obj$position, speed_threshold = speed_threshold,
+                          min_duration = min_duration, ...)
+  return(freezes)
+}
 # CROSSES ------
 
 #' Collects information about each cross in given object
