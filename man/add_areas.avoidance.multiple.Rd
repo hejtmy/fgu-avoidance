@@ -9,7 +9,8 @@
 \arguments{
 \item{obj}{avoidance.multiple object}
 
-\item{areas}{list of areas of interest to add. Defaults to implemented left, central and right areas}
+\item{areas}{list of areas of interest to add. *Defaults* to 
+implemented left, central and right areas}
 }
 \value{
 object which was passed with added areas

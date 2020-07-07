@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plots paths for crossings — plot_crosses • fgu.avoidance</title>
+<title>Searches for episodes of freezing behaviour — collect_freezes • fgu.avoidance</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
 
 
-<meta property="og:title" content="Plots paths for crossings — plot_crosses" />
+<meta property="og:title" content="Searches for episodes of freezing behaviour — collect_freezes" />
 
-<meta property="og:description" content="Plots paths for crossings" />
+<meta property="og:description" content="This function is basically a complex wrapper around the navr::search_stops
+function. The goal is to implement stable preprocessing nad smoothing here, so that 
+it is not a mere wrapper around the navr::search_stops function" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,41 +111,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plots paths for crossings</h1>
+    <h1>Searches for episodes of freezing behaviour</h1>
     
-    <div class="hidden name"><code>plot_crosses.Rd</code></div>
+    <div class="hidden name"><code>collect_freezes.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plots paths for crossings</p>
+    <p>This function is basically a complex wrapper around the navr::search_stops
+function. The goal is to implement stable preprocessing nad smoothing here, so that 
+it is not a mere wrapper around the navr::search_stops function</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_crosses</span>(<span class='no'>obj</span>, <span class='no'>iCrosses</span>, <span class='kw'>timewindow</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>collect_freezes</span>(<span class='no'>obj</span>, <span class='no'>min_duration</span>, <span class='no'>speed_threshold</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for avoidance.single</span>
+<span class='fu'>collect_freezes</span>(<span class='no'>obj</span>, <span class='no'>min_duration</span>,
+  <span class='no'>speed_threshold</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>obj</th>
-      <td><p>avoidance.single</p></td>
+      <td><p>valid object. Currently only avoidance single is recommended. The 
+navr positioning data should optimally be smoothed for the best results to be
+obtained. Use</p></td>
     </tr>
     <tr>
-      <th>iCrosses</th>
-      <td><p>indices of crossings. Can be obtained with <code>collect_crosses</code></p></td>
+      <th>min_duration</th>
+      <td><p>minimal duration of the freeze</p></td>
     </tr>
     <tr>
-      <th>timewindow</th>
-      <td><p>numeric(1 or 2) time in seconds defining window before and after the crossing to plot. 
-E.g. tiemwindow = 1 will plot 1 second before and after the time of the cross completed. timewindow c(1,2)
-will plot time 1s before and 2s after the cross. Defaults to 1</p></td>
+      <th>speed_threshold</th>
+      <td><p>what movement speed is considered unmoving (there is still 
+some movement in the machine)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other optional parameters. see `navr::search_stops`` for the complete set</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
 
-    <p>ggpplot visualisation to animal crosses</p>
+    <ul>
+<li><p><code>avoidance.single</code>: Implementation for avoidance.single object</p></li>
+</ul>
     
 
   </div>
@@ -152,7 +167,7 @@ will plot time 1s before and 2s after the cross. Defaults to 1</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
           </ul>
 
   </div>

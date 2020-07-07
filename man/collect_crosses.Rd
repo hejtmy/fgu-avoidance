@@ -2,14 +2,37 @@
 % Please edit documentation in R/avoidance-analysis.R
 \name{collect_crosses}
 \alias{collect_crosses}
+\alias{collect_crosses.avoidance.multiple}
+\alias{collect_crosses.avoidance.single}
 \title{Collects information about each cross in given object}
 \usage{
 collect_crosses(obj)
+
+\method{collect_crosses}{avoidance.multiple}(obj)
+
+\method{collect_crosses}{avoidance.single}(obj)
+}
+\arguments{
+\item{obj}{avoidance single or multiple object with areas added.}
 }
 \value{
-dataframe with *from, to, time, index* columns. From defines whihc area was the cross from, to
+dataframe with *from, to, time, index* columns. From defines which area was the cross from, to
 which area it was made to. Time is the time of the cross and index is the index in the position data
 }
 \description{
-Uses `get_area_visits` form the package `navr` under the hood.
+The function calculates crosses from each of the default areas 
+definined in the object. The areas need to be added during the preprocessing.
+See \code{\link{add_areas}} to add the default areas.
+
+In case you want to use different htan the default areas, you need to use the `get_area_visits`
+from the `navr` package, which this function uses under the hood
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{avoidance.multiple}: calculates all the crosses for all the animals in the 
+object.
+
+\item \code{avoidance.single}: calculates the crosses for the animal. Wrapper around
+the
+}}
+

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plots paths for crossings — plot_crosses • fgu.avoidance</title>
+<title>Returns times of animal presence in each area of interest — collect_area_presence • fgu.avoidance</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Plots paths for crossings — plot_crosses" />
+<meta property="og:title" content="Returns times of animal presence in each area of interest — collect_area_presence" />
 
-<meta property="og:description" content="Plots paths for crossings" />
+<meta property="og:description" content="Returns times of animal presence in each area of interest" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,41 +109,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plots paths for crossings</h1>
+    <h1>Returns times of animal presence in each area of interest</h1>
     
-    <div class="hidden name"><code>plot_crosses.Rd</code></div>
+    <div class="hidden name"><code>collect_area_presence.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plots paths for crossings</p>
+    <p>Returns times of animal presence in each area of interest</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_crosses</span>(<span class='no'>obj</span>, <span class='no'>iCrosses</span>, <span class='kw'>timewindow</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>collect_area_presence</span>(<span class='no'>obj</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>obj</th>
-      <td><p>avoidance.single</p></td>
-    </tr>
-    <tr>
-      <th>iCrosses</th>
-      <td><p>indices of crossings. Can be obtained with <code>collect_crosses</code></p></td>
-    </tr>
-    <tr>
-      <th>timewindow</th>
-      <td><p>numeric(1 or 2) time in seconds defining window before and after the crossing to plot. 
-E.g. tiemwindow = 1 will plot 1 second before and after the time of the cross completed. timewindow c(1,2)
-will plot time 1s before and 2s after the cross. Defaults to 1</p></td>
+      <td><p>avoidance.single object</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ggpplot visualisation to animal crosses</p>
+    <p>data.frame with times and animals location</p>
     
 
   </div>

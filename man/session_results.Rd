@@ -2,12 +2,19 @@
 % Please edit documentation in R/avoidance-analysis.R
 \name{session_results}
 \alias{session_results}
+\alias{session_results.avoidance.multiple}
+\alias{session_results.avoidance.single}
 \title{Basic results to give a report from a single session}
 \usage{
 session_results(obj)
+
+\method{session_results}{avoidance.multiple}(obj)
+
+\method{session_results}{avoidance.single}(obj)
 }
 \arguments{
-\item{obj}{either avoidance.single or avoidance.multiple object}
+\item{obj}{either avoidance.single or avoidance.multiple objects. It needs to
+be preprocessed, areas added (See \code{\link{add_areas}}).}
 }
 \value{
 data frame with basic session results
@@ -15,3 +22,10 @@ data frame with basic session results
 \description{
 Basic results to give a report from a single session
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{avoidance.multiple}: returns session results for a single avoidance object
+
+\item \code{avoidance.single}: returns session results for a single avoidance object
+}}
+

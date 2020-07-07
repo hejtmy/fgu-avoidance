@@ -75,6 +75,21 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/area-presence-and-crosses.html">Area presence and crosses</a>
+    </li>
+    <li>
+      <a href="../articles/visualisations.html">Visualisations</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -150,9 +165,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="add_areas.avoidance.multiple.html">add_areas(<i>&lt;avoidance.multiple&gt;</i>)</a></code> </p>
+          <p><code><a href="smooth_speed.avoidance.single.html">smooth_speed(<i>&lt;avoidance.single&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Adds areas of interest into the positioning data.</p></td>
+        <td><p>Smooths speeds</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="smooth_positions.avoidance.single.html">smooth_positions(<i>&lt;avoidance.single&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Smooths positioning data</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -170,15 +191,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_coordinates.html">filter_coordinates()</a></code> </p>
+          <p><code><a href="filter_animals.html">filter_animals()</a></code> </p>
         </td>
-        <td><p>Filter out the coordinates from the loaded data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="collect_crosses.html">collect_crosses()</a></code> </p>
-        </td>
-        <td><p>Collects information about each cross in given object</p></td>
+        <td><p>Filter the fgu.avoidance object for chosen animals</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -196,15 +211,27 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="get_area_presence.html">get_area_presence()</a></code> </p>
+          <p><code><a href="create_crosses_vector.html">create_crosses_vector()</a></code> </p>
+        </td>
+        <td><p>Creates a vector of length exp_length which contains number of crosses given area presence</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="collect_area_presence.html">collect_area_presence()</a></code> </p>
         </td>
         <td><p>Returns times of animal presence in each area of interest</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="create_crosses_vector.html">create_crosses_vector()</a></code> </p>
+          <p><code><a href="collect_crosses.html">collect_crosses()</a></code> </p>
         </td>
-        <td><p>Creates a vector of length exp_length which contains number of crosses given area presence</p></td>
+        <td><p>Collects information about each cross in given object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="collect_freezes.html">collect_freezes()</a></code> </p>
+        </td>
+        <td><p>Searches for episodes of freezing behaviour</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -218,13 +245,13 @@
         <td>
           <p><code><a href="plot_area_presence.html">plot_area_presence()</a></code> </p>
         </td>
-        <td><p>PLots an image of area presence for avoidance.single</p></td>
+        <td><p>Plots an image of area presence for avoidance.single</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="plot_crosses.html">plot_crosses()</a></code> </p>
         </td>
-        <td><p>plots crosses</p></td>
+        <td><p>Plots paths for crossings</p></td>
       </tr><tr>
         
         <td>

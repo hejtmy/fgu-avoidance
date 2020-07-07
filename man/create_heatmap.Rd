@@ -2,17 +2,26 @@
 % Please edit documentation in R/avoidance-visualisations.R
 \name{create_heatmap}
 \alias{create_heatmap}
+\alias{create_heatmap.avoidance.single}
+\alias{create_heatmap.avoidance.multiple}
 \title{Creates heatmap from passed object}
 \usage{
 create_heatmap(obj, bins = 100, background = apparatus_image_path(),
   ...)
+
+\method{create_heatmap}{avoidance.single}(obj, bins = 100,
+  background = apparatus_image_path(), ...)
+
+\method{create_heatmap}{avoidance.multiple}(obj, bins = 100,
+  background = apparatus_image_path(), ...)
 }
 \arguments{
 \item{obj}{object to calculate heatmap from}
 
 \item{bins}{number of bins}
 
-\item{background}{path to a backgroud image to be plotted. Use \code{\link{apparatus_image_path}} to construct or provide your own.}
+\item{background}{path to a backgroud image to be plotted. 
+Use \code{\link{apparatus_image_path}} to construct or provide your own.}
 
 \item{...}{optional params to the stat_density2d geom}
 
@@ -21,3 +30,10 @@ create_heatmap(obj, bins = 100, background = apparatus_image_path(),
 \description{
 Creates heatmap from passed object
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{avoidance.single}: creates heatmap for a single animal
+
+\item \code{avoidance.multiple}: merges all the data together and creates heatmap for all
+}}
+

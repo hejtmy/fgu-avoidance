@@ -32,7 +32,11 @@
 
 <meta property="og:title" content="Collects information about each cross in given object — collect_crosses" />
 
-<meta property="og:description" content="Collects information about each cross in given object" />
+<meta property="og:description" content="The function calculates crosses from each of the default areas 
+definined in the object. The areas need to be added during the preprocessing.
+See add_areas to add the default areas.
+In case you want to use different htan the default areas, you need to use the `get_area_visits`
+from the `navr` package, which this function uses under the hood" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -78,6 +82,21 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/area-presence-and-crosses.html">Area presence and crosses</a>
+    </li>
+    <li>
+      <a href="../articles/visualisations.html">Visualisations</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -101,23 +120,55 @@
 
     <div class="ref-description">
     
-    <p>Collects information about each cross in given object</p>
+    <p>The function calculates crosses from each of the default areas 
+definined in the object. The areas need to be added during the preprocessing.
+See <code>add_areas</code> to add the default areas.</p>
+<p>In case you want to use different htan the default areas, you need to use the `get_area_visits`
+from the `navr` package, which this function uses under the hood</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>collect_crosses</span>(<span class='no'>obj</span>)</pre>
-        
+    <pre class="usage"><span class='fu'>collect_crosses</span>(<span class='no'>obj</span>)
+
+<span class='co'># S3 method for avoidance.multiple</span>
+<span class='fu'>collect_crosses</span>(<span class='no'>obj</span>)
+
+<span class='co'># S3 method for avoidance.single</span>
+<span class='fu'>collect_crosses</span>(<span class='no'>obj</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>obj</th>
+      <td><p>avoidance single or multiple object with areas added.</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>dataframe with results</p>
+    <p>dataframe with *from, to, time, index* columns. From defines which area was the cross from, to
+which area it was made to. Time is the time of the cross and index is the index in the position data</p>
+    
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+
+    <ul>
+<li><p><code>avoidance.multiple</code>: calculates all the crosses for all the animals in the 
+object.</p></li>
+<li><p><code>avoidance.single</code>: calculates the crosses for the animal. Wrapper around
+the</p></li>
+</ul>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
           </ul>
 
   </div>

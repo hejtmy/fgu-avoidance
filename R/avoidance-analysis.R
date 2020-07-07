@@ -2,7 +2,8 @@
 
 #' Basic results to give a report from a single session
 #'
-#' @param obj either avoidance.single or avoidance.multiple object
+#' @param obj either avoidance.single or avoidance.multiple objects. It needs to
+#' be preprocessed, areas added (See \code{\link{add_areas}}).
 #'
 #' @return data frame with basic session results
 #' @export
@@ -11,6 +12,8 @@
 session_results <- function(obj){ 
   UseMethod("session_results")  
 }
+
+#' @describeIn session_results returns session results for a single avoidance object
 #' @export
 session_results.avoidance.multiple <- function(obj){
   res <- data.frame(stringsAsFactors = FALSE)
@@ -21,6 +24,8 @@ session_results.avoidance.multiple <- function(obj){
   }
   return(res)
 }
+
+#' @describeIn session_results returns session results for a single avoidance object
 #' @export
 session_results.avoidance.single <- function(obj){
   pos <- obj$position
@@ -77,22 +82,32 @@ collect_freezes.avoidance.single <- function(obj, min_duration, speed_threshold,
                           min_duration = min_duration, ...)
   return(freezes)
 }
+
 # CROSSES ------
 
 #' Collects information about each cross in given object
 #'
-#' @description Uses `get_area_visits` form the package `navr` under the hood. 
+#' @description The function calculates crosses from each of the default areas 
+#' definined in the object. The areas need to be added during the preprocessing.
+#' See \code{\link{add_areas}} to add the default areas.
 #' 
-#' @param obj avoidance single or multiple object with default areas added. See \code{\link{`add_areas`}()
+#' In case you want to use different htan the default areas, you need to use the `get_area_visits`
+#' from the `navr` package, which this function uses under the hood
+#' 
+#' @param obj avoidance single or multiple object with areas added.
 #'
-#' @return dataframe with *from, to, time, index* columns. From defines whihc area was the cross from, to
+#' @return dataframe with *from, to, time, index* columns. From defines which area was the cross from, to
 #' which area it was made to. Time is the time of the cross and index is the index in the position data 
+#' 
 #' @export
 #'
 #' @examples
 collect_crosses <- function(obj){
   UseMethod("collect_crosses")
 }
+
+#' @describeIn collect_crosses calculates all the crosses for all the animals in the 
+#' object.
 #' @export
 collect_crosses.avoidance.multiple <- function(obj){
   res <- data.frame()
@@ -106,6 +121,9 @@ collect_crosses.avoidance.multiple <- function(obj){
   }
   return(res)
 }
+
+#' @describeIn collect_crosses calculates the crosses for the animal. Wrapper around
+#' the 
 #' @export
 collect_crosses.avoidance.single <- function(obj){
   pos <- obj$position
@@ -113,10 +131,10 @@ collect_crosses.avoidance.single <- function(obj){
     warning("Areas have not been collectd. Have you run add_areas?")
     return(NULL)
   }
-  to_left_from_right <- collect_crosses.navr(pos, to = LEFT_ZONE_NAME, 
-                                             from = RIGHT_ZONE_NAME, 
+  to_left_from_right <- collect_crosses.navr(pos, to = LEFT_ZONE_NAME,
+                                             from = RIGHT_ZONE_NAME,
                                              between_allowed = 1)
-  to_right_from_left <- collect_crosses.navr(pos, to = RIGHT_ZONE_NAME, 
+  to_right_from_left <- collect_crosses.navr(pos, to = RIGHT_ZONE_NAME,
                                              from = LEFT_ZONE_NAME,
                                              between_allowed = 1)
   res <- rbind.data.frame(to_right_from_left, to_left_from_right)

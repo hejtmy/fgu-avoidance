@@ -78,6 +78,21 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/area-presence-and-crosses.html">Area presence and crosses</a>
+    </li>
+    <li>
+      <a href="../articles/visualisations.html">Visualisations</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -106,8 +121,9 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for avoidance.single</span>
-<span class='fu'>plot_path</span>(<span class='no'>obj</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='fu'>central_zone</span>(),
-  <span class='kw'>background</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#98959a"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1.25</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plot_path</span>(<span class='no'>obj</span>,
+  <span class='kw'>background</span> <span class='kw'>=</span> <span class='fu'>apparatus_image_path</span>(), <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#98959a"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1.25</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -117,20 +133,21 @@
       <td><p>avoidance single object</p></td>
     </tr>
     <tr>
-      <th>center</th>
-      <td></td>
+      <th>background</th>
+      <td><p>path to a backgroud image to be plotted. Use <code>apparatus_image_path</code> 
+to construct or provide your own.</p></td>
     </tr>
     <tr>
-      <th>background</th>
-      <td></td>
+      <th>center</th>
+      <td><p>logical determining if the central zone should be plotted</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td></td>
+      <td><p>color of the path</p></td>
     </tr>
     <tr>
       <th>size</th>
-      <td></td>
+      <td><p>path size</p></td>
     </tr>
     <tr>
       <th>...</th>

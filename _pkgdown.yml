@@ -12,12 +12,15 @@ reference:
   - '`combine_all`'
   - '`add_areas.avoidance.single`'
   - '`add_areas.avoidance.multiple`'
+  - '`smooth_speed.avoidance.single`'
+  - '`smooth_positions.avoidance.single`'
   
 - title: getters
   desc: Function allowing access to some hidden 
   contents: 
   - '`get_position_table`'
-  
+  - '`filter_animals`'
+
 - title: Analysis
   desc: Functions analysing animal behaviour
   contents:
@@ -25,6 +28,7 @@ reference:
   - '`create_crosses_vector`'
   - '`collect_area_presence`'
   - '`collect_crosses`'
+  - '`collect_freezes`'
 
 - title: Visualisations
   desc: ~

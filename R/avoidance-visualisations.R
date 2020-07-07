@@ -5,7 +5,8 @@
 #' @param obj object to calculate heatmap from
 #' @param bins number of bins
 #' @param geom which geom to use? possibile are "polygon"(default) or "raster"
-#' @param background path to a backgroud image to be plotted. Use \code{\link{apparatus_image_path}} to construct or provide your own. 
+#' @param background path to a backgroud image to be plotted. 
+#' Use \code{\link{apparatus_image_path}} to construct or provide your own.
 #' @param ... optional params to the stat_density2d geom
 #'
 #' @return
@@ -15,11 +16,15 @@
 create_heatmap <- function(obj, bins = 100, background = apparatus_image_path(), ...){
   UseMethod("create_heatmap")
 }
+
+#' @describeIn create_heatmap creates heatmap for a single animal
 #' @export
 create_heatmap.avoidance.single <- function(obj, bins = 100, background = apparatus_image_path(), ...){
   plt <- create_heatmap_plot(obj, bins, background, ...)
   return(plt)
 }
+
+#' @describeIn create_heatmap merges all the data together and creates heatmap for all
 #' @export
 create_heatmap.avoidance.multiple <- function(obj, bins = 100, background = apparatus_image_path(), ...){
   obj <- combine_all(obj)
@@ -53,7 +58,8 @@ create_heatmap_plot <- function(obj, bins, background, ...){
 #' Creates a path graph of a single trial
 #'
 #' @param obj avoidance single object
-#' @param background path to a backgroud image to be plotted. Use \code{\link{apparatus_image_path}} to construct or provide your own. 
+#' @param background path to a backgroud image to be plotted. Use \code{\link{apparatus_image_path}} 
+#' to construct or provide your own.
 #' @param center logical determining if the central zone should be plotted
 #' @param color color of the path
 #' @param size path size

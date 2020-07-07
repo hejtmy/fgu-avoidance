@@ -9,8 +9,8 @@
 \arguments{
 \item{obj}{avoidance.single object}
 
-\item{areas}{list of areas of interest to add. Defaults to implemented left, central and right areas 
-in the function `default_zones`}
+\item{areas}{list of areas of interest to add. *Defaults* to implemented left, central and right areas 
+in the function \code{\link{default_zones}}}
 }
 \value{
 object which was passed with added areas

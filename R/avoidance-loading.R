@@ -27,30 +27,65 @@ load_folder <- function(folder){
 #' @export
 #'
 #' @examples
-load_data <- function(filepath){
-  res <- list()
-  df <- load_table(filepath)
+load_data <- function(filepath = NULL, text = NULL){
+  df <- load_table(filepath, text)
   res <- convert_table_to_objects(df)
   return(res)
 }
 
-#' Loads text data from already loaded text
-#'
-#' @param text 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-load_text_data <- function(text){
-  df <- read.table(text = text, sep=";", dec=",", skip=1, header=TRUE)
+## HELPERS ------
+
+load_table <- function(filepath = NULL, text = NULL){
+  if(all(is.null(filepath), is.null(text))) return(NULL)
+  if(!is.null(filepath)) df <- read.table(filepath, sep=";", dec=",", skip=1, header=TRUE)
+  if(!is.null(text)) df <- read.table(text = text, sep=";", dec=",", skip=1, header=TRUE)
   df <- process_table(df)
-  df <- convert_table_to_objects(df)
   return(df)
 }
 
-load_table <- function(filepath){
-  df <- read.table(filepath, sep=";", dec=",", skip=1, header=TRUE)
-  df <- process_table(df)
+convert_table_to_objects <- function(df){
+  res <- list()
+  animals <- unique(df$AnimNo)
+  for(animal in animals){
+    obj <- list()
+    df_animal <- filter_df_animal(df, animal)
+    rownames(df_animal) <- 1:nrow(df_animal)
+    position <- as.navr(df_animal)
+    obj$position <- position
+    class(obj) <- append(class(obj), "avoidance.single")
+    obj <- add_areas(obj)
+    res[[animal]] <- obj
+  }
+  class(res) <- append(class(res), "avoidance.multiple")
+  return(res) 
+}
+
+process_table <- function(df){
+  df <- df[2:nrow(df),] #for some reaons the first row is always weird
+  df$AnimNo <- create_animal_code(df$AnimNo)
   return(df)
+}
+
+filter_df_animal <- function(df, animal_code){
+  res <- df[df$AnimNo == animal_code, ]
+  return(res)
+}
+
+create_animal_code <- function(num){
+  return(paste0("animal_", num))
+}
+
+add_unique_animal_code <- function(df_new, df_old){
+  anim_code <- unique(df_new$AnimNo)
+  existing_codes <- unique(df_old$AnimNo)
+  enum <- 2
+  for(code in anim_code){
+    new_code <- code
+    while(new_code %in% existing_codes){
+      new_code <- paste0(code, "_", enum)
+      enum <- enum + 1
+    }
+    df_new$AnimNo[df_new$AnimNo == code] <- new_code
+  }
+  return(df_new)
 }

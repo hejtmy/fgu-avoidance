@@ -46,7 +46,9 @@ nav <- obj$animal_9$position
 nav <- remove_unreal_speeds(nav, type="value", cutoff=100)
 nav_smooth <- smooth_speed(nav, type="median", points=9)
 plot_speed(nav_smooth)
+
 freezes <- search_stops(nav_smooth, speed_threshold = 10, min_duration = 2)
+
 plot_speed(nav_smooth) +
   geom_navr_timeseries_events(freezes$time_since_start,
                               durations = freezes$duration,
@@ -58,7 +60,7 @@ plot_speed(obj$animal_9$position) +
    geom_navr_timeseries_events(freezes$time_since_start,
                               durations = freezes$duration,
                               color = "red", size=2) +
-  geom_hline(yintercept=10)
+  geom_hline(yintercept = 10)
  
 
 freezes_times <- rbind(freezes$time, freezes$time + freezes$duration)

@@ -4,7 +4,7 @@
 \alias{load_data}
 \title{Load data from a particular filepath}
 \usage{
-load_data(filepath)
+load_data(filepath = NULL, text = NULL)
 }
 \arguments{
 \item{filepath}{Either filepath or a text}

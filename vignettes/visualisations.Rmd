@@ -41,14 +41,14 @@ plot_path(animal, background = NULL)
 plot_area_presence(animal, darkside = "right")
 ```
 
-
+Or we can flip the left right coloring
 ```{r}
-plot_area_presence(animal, darkside = "right")
+plot_area_presence(animal, darkside = "left")
 ```
 
 ## Plotting crossings
 
-There is a quick function to plot animal crossings
+There is a quick function to plot animal crossings to demonstrate that everything works as intended
 ```{r}
 crosses <- collect_crosses(animal)
 plot_crosses(animal, crosses$index, timewindow = 1)
