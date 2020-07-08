@@ -35,6 +35,7 @@ reference:
   - '`plot_area_presence`'
   - '`plot_crosses`'
   - '`plot_path.avoidance.single`'
+  - '`plot_speed.avoidance.single`'
   - '`create_heatmap`'
   - '`gradient_style`'
 

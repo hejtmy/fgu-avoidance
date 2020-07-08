@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Load data from a particular filepath — load_data • fgu.avoidance</title>
+<title>Plots animal's speed — plot_speed.avoidance.single • fgu.avoidance</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Load data from a particular filepath — load_data" />
+<meta property="og:title" content="Plots animal's speed — plot_speed.avoidance.single" />
 
-<meta property="og:description" content="Load data from a particular filepath" />
+<meta property="og:description" content="Plots animal's speed" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,35 +112,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Load data from a particular filepath</h1>
+    <h1>Plots animal's speed</h1>
     
-    <div class="hidden name"><code>load_data.Rd</code></div>
+    <div class="hidden name"><code>plot_speed.avoidance.single.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Load data from a particular filepath</p>
+    <p>Plots animal's speed</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>load_data</span>(<span class='kw'>filepath</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for avoidance.single</span>
+<span class='fu'>plot_speed</span>(<span class='no'>obj</span>, <span class='kw'>scaling</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
+  <span class='kw'>constraints</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>filepath</th>
-      <td><p>Either filepath or a text</p></td>
+      <th>obj</th>
+      <td><p>avoidnace.single object</p></td>
     </tr>
     <tr>
-      <th>text</th>
-      <td><p>althernatively the data can be loaded from loaded text</p></td>
+      <th>scaling</th>
+      <td><p>scaling to implement. see `navr::plot_speed` for specifics</p></td>
+    </tr>
+    <tr>
+      <th>constraints</th>
+      <td><p>if the speed is scaled, it can be constrained to defined values. 
+Requires numeric(2)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other <code>ggplot::geom_line</code> parameters</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>avoidance.single object</p>
+    <p>ggplot plot object</p>
     
 
   </div>
