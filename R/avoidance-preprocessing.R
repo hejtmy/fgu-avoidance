@@ -1,22 +1,3 @@
-#' Converts the coordinate data to navr
-#'
-#' @param df data from load_table
-#'
-#' @return navr object
-#' @export
-#'
-#' @examples
-as.navr <- function(df){
-  df <- df[df$Event == "Coordinate",]
-  df <- df[, c("Time", "Parameter1", "Parameter2")]
-  colnames(df) <- c("timestamp", "position_x", "position_y")
-  df$timestamp <- df$timestamp/1000
-  obj <- navr::NavrObject()
-  obj <- navr::load_position_data(obj, df)
-  obj <- prepare_navr(obj)
-  return(obj)
-}
-
 ## AREAs ----
 
 #' Adds areas of interest into the positioning data.
@@ -27,8 +8,6 @@ as.navr <- function(df){
 #' 
 #' @return object which was passed with added areas
 #' @export
-#'
-#' @examples
 add_areas.avoidance.multiple <- function(obj, areas = default_zones()){
   for(i in 1:length(obj)){
     obj[[i]] <- add_areas(obj[[i]], areas)
@@ -36,15 +15,14 @@ add_areas.avoidance.multiple <- function(obj, areas = default_zones()){
   return(obj)
 }
 
-#' Adds areas if ubterest into the positioning data
+#' Adds areas into the positioning data
+#' 
 #' @param obj avoidance.single object
 #' @param areas list of areas of interest to add. *Defaults* to implemented left, central and right areas 
 #' in the function \code{\link{default_zones}}
 #'
 #' @return object which was passed with added areas
 #' @export
-#'
-#' @examples
 add_areas.avoidance.single <- function(obj, areas = default_zones()){
   obj$position <- navr::add_areas(obj$position, areas)
   return(obj)
@@ -54,6 +32,7 @@ add_areas.avoidance.single <- function(obj, areas = default_zones()){
 #' Smooths positioning data
 #' 
 #' @description S3 method for the `navr::smooth_positions`.`
+#' 
 #' @param obj avoidance.single object
 #' @param ... parameters for the `navr::smooth_positions` function.
 #' 

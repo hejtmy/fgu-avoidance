@@ -60,6 +60,22 @@ convert_table_to_objects <- function(df){
   return(res) 
 }
 
+#' Converts the coordinate data to navr
+#'
+#' @param df data from load_data
+#' @return navr object
+#' @noRd
+as.navr <- function(df){
+  df <- df[df$Event == "Coordinate",]
+  df <- df[, c("Time", "Parameter1", "Parameter2")]
+  colnames(df) <- c("timestamp", "position_x", "position_y")
+  df$timestamp <- df$timestamp/1000
+  obj <- navr::NavrObject()
+  obj <- navr::load_position_data(obj, df)
+  obj <- prepare_navr(obj)
+  return(obj)
+}
+
 process_table <- function(df){
   df <- df[2:nrow(df),] #for some reaons the first row is always weird
   df$AnimNo <- create_animal_code(df$AnimNo)

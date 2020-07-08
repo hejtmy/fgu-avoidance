@@ -85,6 +85,25 @@ plot_path.avoidance.single <- function(obj, background = apparatus_image_path(),
   return(plt)
 }
 
+## TIMESERIES
+
+#' Plots animal's speed
+#'
+#' @param obj avoidnace.single object
+#' @param scaling scaling to implement. see `navr::plot_speed` for specifics
+#' @param constraints if the speed is scaled, it can be constrained to defined values. 
+#' Requires numeric(2)
+#' @param ... other \code{\link{ggplot::geom_line}} parameters
+#'
+#' @return ggplot plot object
+#' @export
+#'
+#' @examples
+plot_speed.avoidance.single <- function(obj, scaling = "none", constraints = NULL, ...){
+  return(plot_speed(obj$position, scaling=scaling,
+                       constraints=  constraints , ...))
+}
+
 ## CROSSES -----
 
 #' Plots paths for crossings 

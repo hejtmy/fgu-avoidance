@@ -12,5 +12,5 @@
 \item{...}{parameters for the `navr::smooth_speed`` function}
 }
 \description{
-s3 method for the `navr::smooth_speed`
+S3 method for the `navr::smooth_speed`
 }

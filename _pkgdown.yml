@@ -8,7 +8,6 @@ reference:
 - title: Preprocessing
   desc: Functions which restructure and prepare objects for future analysis or visualisaiton 
   contents:
-  - '`as.navr`'
   - '`combine_all`'
   - '`add_areas.avoidance.single`'
   - '`add_areas.avoidance.multiple`'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/avoidance-preprocessing.R
 \name{add_areas.avoidance.single}
 \alias{add_areas.avoidance.single}
-\title{Adds areas if ubterest into the positioning data}
+\title{Adds areas into the positioning data}
 \usage{
 \method{add_areas}{avoidance.single}(obj, areas = default_zones())
 }
@@ -16,5 +16,5 @@ in the function \code{\link{default_zones}}}
 object which was passed with added areas
 }
 \description{
-Adds areas if ubterest into the positioning data
+Adds areas into the positioning data
 }
