@@ -32,8 +32,8 @@ reference:
 - title: Visualisations
   desc: ~
   contents:
-  - '`plot_area_presence`'
   - '`plot_crosses`'
+  - '`plot_area_presence`'
   - '`plot_path.avoidance.single`'
   - '`plot_speed.avoidance.single`'
   - '`create_heatmap`'

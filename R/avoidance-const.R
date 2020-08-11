@@ -1,6 +1,7 @@
 BOX_ROOM_REAL <- list(x = c(0, 420), y = c(0, 420))
 BOX_ROOM <- list(x = c(0, 420), y = c(80, 340))
 
+# This is for plotting of graphs with the background image
 box_room_size <- function(type = "animal"){
   if(type == "animal"){
     return(BOX_ROOM)
@@ -13,7 +14,8 @@ box_room_size <- function(type = "animal"){
 ## IMAGES
 #' Retuns path to the apparatus image
 #'
-#' @param darkside which zone should be dark? Defaults to "right"
+#' @param darkside which zone should be dark? Oprions are "left" or "right. 
+#' Defaults to "right"
 #'
 #' @export
 apparatus_image_path <- function(darkside = RIGHT_ZONE_NAME){

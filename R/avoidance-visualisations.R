@@ -46,7 +46,8 @@ create_heatmap_plot <- function(obj, bins, background, ...){
     lims(x=c(0,500), y = c(0,500)) +
     coord_cartesian(xlim = size$x, ylim = size$y) +
     theme_bw() +
-    heatmap_theme()
+    heatmap_theme() +
+    labs(x="",y="")
   if(!is.null(background)){
     plt <- plt + theme(panel.background = element_rect(fill = "transparent")) 
   }
