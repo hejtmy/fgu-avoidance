@@ -9,6 +9,9 @@ get_position_table(obj)
 \arguments{
 \item{obj}{avoidance.single object}
 }
+\value{
+
+}
 \description{
 Returns positioning data
 }

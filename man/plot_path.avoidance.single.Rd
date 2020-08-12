@@ -4,9 +4,14 @@
 \alias{plot_path.avoidance.single}
 \title{Creates a path graph of a single trial}
 \usage{
-\method{plot_path}{avoidance.single}(obj,
-  background = apparatus_image_path(), center = FALSE,
-  color = "#98959a", size = 1.25, ...)
+\method{plot_path}{avoidance.single}(
+  obj,
+  background = apparatus_image_path(),
+  center = FALSE,
+  color = "#98959a",
+  size = 1.25,
+  ...
+)
 }
 \arguments{
 \item{obj}{avoidance single object}
@@ -21,6 +26,9 @@ to construct or provide your own.}
 \item{size}{path size}
 
 \item{...}{}
+}
+\value{
+
 }
 \description{
 Creates a path graph of a single trial

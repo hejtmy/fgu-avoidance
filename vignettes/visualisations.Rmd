@@ -26,6 +26,8 @@ animal <- animals$animal_8
 plot_path(animal)
 ```
 
+If you need to change the background image, you can either pass it your own, or you can use the function `apparatus_image_path` and set the argument `darkside` to be left or right. 
+
 ```{r}
 plot_path(animal, center = TRUE, background = apparatus_image_path(darkside = "left"))
 ```

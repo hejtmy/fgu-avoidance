@@ -7,8 +7,7 @@
 \usage{
 collect_freezes(obj, min_duration, speed_threshold, ...)
 
-\method{collect_freezes}{avoidance.single}(obj, min_duration,
-  speed_threshold, ...)
+\method{collect_freezes}{avoidance.single}(obj, min_duration, speed_threshold, ...)
 }
 \arguments{
 \item{obj}{valid object. Currently only avoidance single is recommended. The 
@@ -21,6 +20,9 @@ obtained. Use}
 some movement in the machine)}
 
 \item{...}{other optional parameters. see `navr::search_stops`` for the complete set}
+}
+\value{
+
 }
 \description{
 This function is basically a complex wrapper around the navr::search_stops

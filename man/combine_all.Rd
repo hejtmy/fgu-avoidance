@@ -9,6 +9,9 @@ combine_all(obj)
 \arguments{
 \item{obj}{avoidance.multiple object}
 }
+\value{
+
+}
 \description{
 Creates a single navr object with all animals combined together
 }

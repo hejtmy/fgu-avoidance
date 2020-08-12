@@ -4,8 +4,7 @@
 \alias{plot_speed.avoidance.single}
 \title{Plots animal's speed}
 \usage{
-\method{plot_speed}{avoidance.single}(obj, scaling = "none",
-  constraints = NULL, ...)
+\method{plot_speed}{avoidance.single}(obj, scaling = "none", constraints = NULL, ...)
 }
 \arguments{
 \item{obj}{avoidnace.single object}

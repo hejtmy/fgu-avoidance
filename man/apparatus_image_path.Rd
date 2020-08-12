@@ -7,7 +7,8 @@
 apparatus_image_path(darkside = RIGHT_ZONE_NAME)
 }
 \arguments{
-\item{darkside}{which zone should be dark? Defaults to "right"}
+\item{darkside}{which zone should be dark? Oprions are "left" or "right. 
+Defaults to "right"}
 }
 \description{
 Retuns path to the apparatus image

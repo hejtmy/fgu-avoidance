@@ -6,14 +6,11 @@
 \alias{create_heatmap.avoidance.multiple}
 \title{Creates heatmap from passed object}
 \usage{
-create_heatmap(obj, bins = 100, background = apparatus_image_path(),
-  ...)
+create_heatmap(obj, bins = 100, background = apparatus_image_path(), ...)
 
-\method{create_heatmap}{avoidance.single}(obj, bins = 100,
-  background = apparatus_image_path(), ...)
+\method{create_heatmap}{avoidance.single}(obj, bins = 100, background = apparatus_image_path(), ...)
 
-\method{create_heatmap}{avoidance.multiple}(obj, bins = 100,
-  background = apparatus_image_path(), ...)
+\method{create_heatmap}{avoidance.multiple}(obj, bins = 100, background = apparatus_image_path(), ...)
 }
 \arguments{
 \item{obj}{object to calculate heatmap from}
@@ -26,6 +23,9 @@ Use \code{\link{apparatus_image_path}} to construct or provide your own.}
 \item{...}{optional params to the stat_density2d geom}
 
 \item{geom}{which geom to use? possibile are "polygon"(default) or "raster"}
+}
+\value{
+
 }
 \description{
 Creates heatmap from passed object
