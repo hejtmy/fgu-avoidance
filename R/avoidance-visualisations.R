@@ -186,7 +186,7 @@ base_path_plot <- function(zone = central_zone()){
     geom_box_room() +
     geom_central_zone(zone) +
     theme_void() + 
-    guides(fill=FALSE)
+    guides(fill=!none)
   return(res)
 }
 
@@ -194,7 +194,7 @@ background_path_plot <- function(background = apparatus_image_path(), darkside =
   res <- ggplot() +
     geom_navr_background(background, BOX_ROOM_REAL$x, BOX_ROOM_REAL$y) + 
     theme_void() + 
-    guides(fill=FALSE)
+    guides(fill="none")
   return(res)
 }
 ## STYLES -----
