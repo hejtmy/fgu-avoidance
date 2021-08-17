@@ -115,8 +115,8 @@ collect_crosses.avoidance.multiple <- function(obj){
     df <- collect_crosses.avoidance.single(obj[[i]])
     if(is.null(df)) return(NULL)
     if(nrow(df) > 0){
-      res <- rbind.data.frame(res, df)
       df$animal <- names(obj)[i]
+      res <- rbind.data.frame(res, df)
     }
   }
   return(res)
