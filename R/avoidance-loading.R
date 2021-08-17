@@ -1,5 +1,6 @@
 #' Loads all files from a folder and combines to a large table which is then processed 
 #'
+#'
 #' @param folder folder with multiple animals loaded
 #'
 #' @return
@@ -21,8 +22,12 @@ load_folder <- function(folder){
 
 #' Load data from a particular filepath
 #'
+#' @description The data are loaded and then preprocessed. 
+#' Areas are added (see \code{\link{add_areas}}), position data are converted to 
+#' navr object and classes are added to the resulting objects
+#' 
 #' @param filepath Either filepath or a text
-#' @param text althernatively the data can be loaded from loaded text 
+#' @param text alternatively the data can be loaded from loaded text 
 #' @return avoidance.single object
 #' @export
 #'
@@ -37,8 +42,10 @@ load_data <- function(filepath = NULL, text = NULL){
 
 load_table <- function(filepath = NULL, text = NULL){
   if(all(is.null(filepath), is.null(text))) return(NULL)
-  if(!is.null(filepath)) df <- read.table(filepath, sep=";", dec=",", skip=1, header=TRUE)
-  if(!is.null(text)) df <- read.table(text = text, sep=";", dec=",", skip=1, header=TRUE)
+  if(!is.null(filepath)) df <- read.table(filepath, sep=";", dec=",", 
+                                          skip=1, header=TRUE)
+  if(!is.null(text)) df <- read.table(text = text, sep=";", dec=",",
+                                      skip=1, header=TRUE)
   df <- process_table(df)
   return(df)
 }

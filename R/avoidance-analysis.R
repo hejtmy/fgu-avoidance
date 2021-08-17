@@ -88,11 +88,16 @@ collect_freezes.avoidance.single <- function(obj, min_duration, speed_threshold,
 #' Collects information about each cross in given object
 #'
 #' @description The function calculates crosses from each of the default areas 
-#' definined in the object. The areas need to be added during the preprocessing.
-#' See \code{\link{add_areas}} to add the default areas.
+#' definined in the object except the central area. The central area is considered 
+#' a "buffer" - if an animal enters only the central area, cross is NOT counted. 
+#' The areas need to be added during the preprocessing and area generally automatically 
+#' added with \code{\link{load_data}}. If you need to define your own areas you
+#' can do so using the \code{\link{add_areas}} function.
+
 #' 
-#' In case you want to use different htan the default areas, you need to use the `get_area_visits`
-#' from the `navr` package, which this function uses under the hood
+#' In case you want to use different then the default areas, you either need 
+#' to define your own or just use the `get_area_visits` from the `navr` package, 
+#' which this function uses under the hood
 #' 
 #' @param obj avoidance single or multiple object with areas added.
 #'
@@ -123,7 +128,8 @@ collect_crosses.avoidance.multiple <- function(obj){
 }
 
 #' @describeIn collect_crosses calculates the crosses for the animal. Wrapper around
-#' the 
+#' the \code{\link{navr::get_area_visits}}.
+#' 
 #' @export
 collect_crosses.avoidance.single <- function(obj){
   pos <- obj$position
@@ -142,7 +148,8 @@ collect_crosses.avoidance.single <- function(obj){
 }
 
 collect_crosses.navr <- function(obj, to, from, between_allowed){
-  iVisits <- get_area_visits(obj, to, from = from, between_allowed = between_allowed)
+  iVisits <- get_area_visits(obj, to, from = from, 
+                             between_allowed = between_allowed)
   res <- data.frame(from = rep(from, length(iVisits)),
                     to = rep(to, length(iVisits)),
                     time = obj$data$timestamp[iVisits],

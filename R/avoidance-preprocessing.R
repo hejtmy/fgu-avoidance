@@ -17,9 +17,13 @@ add_areas.avoidance.multiple <- function(obj, areas = default_zones()){
 
 #' Adds areas into the positioning data
 #' 
+#' @description For a detailed description of how the areas are used and defined
+#' see the \code{navr} package. Areas are used for cross calculation and during
+#' plotting.
+#' 
 #' @param obj avoidance.single object
-#' @param areas list of areas of interest to add. *Defaults* to implemented left, central and right areas 
-#' in the function \code{\link{default_zones}}
+#' @param areas list of areas of interest to add. *Defaults* to implemented left, 
+#' central and right areas in the function \code{\link{default_zones}}
 #'
 #' @return object which was passed with added areas
 #' @export
