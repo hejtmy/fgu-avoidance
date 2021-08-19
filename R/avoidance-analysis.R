@@ -197,6 +197,25 @@ create_crosses_vector <- function(df_presence, exp_length = 3600){
 #'
 #' @examples
 collect_area_presence <- function(obj){
+  UseMethod("collect_area_presence")
+}
+
+#' @describeIn collect_area_presence 
+#' @export
+collect_area_presence.avoidance.multiple <- function(obj){
+  res <- data.frame()
+  for(animal in names(obj)){
+    single <- obj[[animal]]
+    temp <- collect_area_presence.avoidance.single(single)
+    temp$animal <- animal
+    res <- rbind(res, temp)
+  }
+  return(res)
+}
+
+#' @describeIn collect_area_presence 
+#' @export
+collect_area_presence.avoidance.single <- function(obj){
   if(!("avoidance.single" %in% class(obj))){
     warning("The object is not avoidance.single object")
     return(NULL)
@@ -206,7 +225,6 @@ collect_area_presence <- function(obj){
     return(NULL)
   }
   crosses <- collect_crosses(obj)
-  
   ordered <- crosses[order(crosses$time),]
   # if there were no crosses altogether, we create a fake crosses with the start area
   if(nrow(ordered) < 1){

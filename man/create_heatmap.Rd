@@ -4,6 +4,7 @@
 \alias{create_heatmap}
 \alias{create_heatmap.avoidance.single}
 \alias{create_heatmap.avoidance.multiple}
+\alias{plot_area_presence.avoidance.single}
 \title{Creates heatmap from passed object}
 \usage{
 create_heatmap(
@@ -29,6 +30,8 @@ create_heatmap(
   add_points = FALSE,
   ...
 )
+
+\method{plot_area_presence}{avoidance.single}(obj, darkside = RIGHT_ZONE_NAME, scale = 50, colors = NULL)
 }
 \arguments{
 \item{obj}{object to calculate heatmap from}
@@ -53,5 +56,7 @@ Creates heatmap from passed object
 \item \code{avoidance.single}: creates heatmap for a single animal
 
 \item \code{avoidance.multiple}: merges all the data together and creates heatmap for all
+
+\item \code{avoidance.single}: creates heatmap for a single animal
 }}
 

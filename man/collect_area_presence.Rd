@@ -2,9 +2,15 @@
 % Please edit documentation in R/avoidance-analysis.R
 \name{collect_area_presence}
 \alias{collect_area_presence}
+\alias{collect_area_presence.avoidance.multiple}
+\alias{collect_area_presence.avoidance.single}
 \title{Returns times of animal presence in each area of interest}
 \usage{
 collect_area_presence(obj)
+
+\method{collect_area_presence}{avoidance.multiple}(obj)
+
+\method{collect_area_presence}{avoidance.single}(obj)
 }
 \arguments{
 \item{obj}{avoidance.single object}
@@ -15,3 +21,10 @@ data.frame with times and animals location
 \description{
 Returns times of animal presence in each area of interest
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{avoidance.multiple}: 
+
+\item \code{avoidance.single}: 
+}}
+

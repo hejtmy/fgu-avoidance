@@ -42,11 +42,12 @@ load_data <- function(filepath = NULL, text = NULL){
 
 load_table <- function(filepath = NULL, text = NULL){
   if(all(is.null(filepath), is.null(text))) return(NULL)
-  if(!is.null(filepath)) df <- read.table(filepath, sep=";", dec=",", 
-                                          skip=1, header=TRUE)
-  if(!is.null(text)) df <- read.table(text = text, sep=";", dec=",",
-                                      skip=1, header=TRUE)
+  if(!is.null(filepath)) df <- read.table(filepath, sep = ";", dec = ",", 
+                                          skip = 1, header = TRUE)
+  if(!is.null(text)) df <- read.table(text = text, sep = ";", dec = ",",
+                                      skip = 1, header = TRUE)
   df <- process_table(df)
+  df$source <- filepath
   return(df)
 }
 
@@ -56,11 +57,16 @@ convert_table_to_objects <- function(df){
   for(animal in animals){
     obj <- list()
     df_animal <- filter_df_animal(df, animal)
+    
+    obj$filepath <- df_animal$source[1]
+    df_animal$filepath <- NULL
+    
     rownames(df_animal) <- 1:nrow(df_animal)
     position <- as.navr(df_animal)
     obj$position <- position
     class(obj) <- append(class(obj), "avoidance.single")
     obj <- add_areas(obj)
+    
     res[[animal]] <- obj
   }
   class(res) <- append(class(res), "avoidance.multiple")

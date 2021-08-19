@@ -8,36 +8,38 @@
 #' @param background path to a backgroud image to be plotted. 
 #' Use \code{\link{apparatus_image_path}} to construct or provide your own.
 #' @param ... optional params to the stat_density2d geom
-#'
 #' @return
 #' @export
 #'
 #' @examples
-create_heatmap <- function(obj, bins = 100, background = apparatus_image_path(), ...){
+create_heatmap <- function(obj, bins = 100, background = apparatus_image_path(), 
+                           add_points = FALSE, ...){
   UseMethod("create_heatmap")
 }
 
 #' @describeIn create_heatmap creates heatmap for a single animal
 #' @export
-create_heatmap.avoidance.single <- function(obj, bins = 100, background = apparatus_image_path(), ...){
-  plt <- create_heatmap_plot(obj, bins, background, ...)
+create_heatmap.avoidance.single <- function(obj, bins = 100, background = apparatus_image_path(), 
+                                            add_points = FALSE, ...){
+  plt <- create_heatmap_plot(obj, bins, background, add_points, ...)
   return(plt)
 }
 
 #' @describeIn create_heatmap merges all the data together and creates heatmap for all
 #' @export
-create_heatmap.avoidance.multiple <- function(obj, bins = 100, background = apparatus_image_path(), ...){
+create_heatmap.avoidance.multiple <- function(obj, bins = 100, background = apparatus_image_path(),
+                                              add_points = FALSE,...){
   obj <- combine_all(obj)
-  return(create_heatmap.avoidance.single(obj, bins, background, ...))
+  return(create_heatmap.avoidance.single(obj, bins, background, add_points, ...))
 }
 
-create_heatmap_plot <- function(obj, bins, background, ...){
+create_heatmap_plot <- function(obj, bins, background, add_points, ...){
   if(!is.null(background)){
     size <- box_room_size(type = "real")
     plt <- ggplot() +
       geom_navr_background(background, size$x, size$y)
   } else {
-    size <- box_room_size()
+    size <- box_room_size(type="animal")
     plt <- ggplot()
   }
   plt <- plt +
@@ -47,7 +49,11 @@ create_heatmap_plot <- function(obj, bins, background, ...){
     coord_cartesian(xlim = size$x, ylim = size$y) +
     theme_bw() +
     heatmap_theme() +
-    labs(x="",y="")
+    labs(x = "", y = "")
+  if(add_points){
+    plt <- plt + 
+      geom_point(data = obj$position$data, mapping = aes(position_x, position_y))
+  }
   if(!is.null(background)){
     plt <- plt + theme(panel.background = element_rect(fill = "transparent")) 
   }
@@ -133,29 +139,39 @@ plot_crosses <- function(obj, iCrosses, timewindow = 1){
 }
 
 ## AREA PRESENCE -----
-
 #' Plots an image of area presence for avoidance.single 
 #'
 #' @param obj avoidance.single object
-#' @param darkside which side is the dark? Can be either "left" or "right". Defaults to "right"
-#' @param scale defines x scale through coord_fixed(ratio = scale). Larger values make the graph narrower. 
+#' @param darkside which side is the dark? Can be either "left" or "right". 
+#' Defaults to "right"
+#' @param scale defines x scale through coord_fixed(ratio = scale). 
+#' Larger values make the graph narrower. 
 #' Defaults to 50
 #' 
-#' @return ggplot constructed with geom_rect 
+#' @return ggplot constructed with geom_rect
 #' @export
 #'
 #' @examples
-plot_area_presence <- function(obj, darkside = RIGHT_ZONE_NAME, scale = 50){
+plot_area_presence <- function(obj, darkside, scale, colors){
+  UseMethod("plot_area_presence")
+}
+
+#' @describeIn create_heatmap creates heatmap for a single animal
+#' @export
+plot_area_presence.avoidance.single <- function(obj, darkside = RIGHT_ZONE_NAME, 
+                                                scale = 50, colors = NULL){
   df <- collect_area_presence(obj)
   if(is.null(df)) return(NULL)
+  if(is.null(colors)) colors <- area_presence_scale(darkside)
   plt <- ggplot(df) +
     geom_rect(aes(xmin = start, xmax = end, ymin = -0, ymax = 1, fill = where)) +
     #geom_text(aes(x=(start+end)/2, y = 1.5 + 5/4*(where=="left"), label = where), check_overlap = TRUE) +
     xlab("Time since start") +
-    scale_fill_manual(values = area_presence_scale(darkside)) +
-    coord_fixed(ratio = scale) + ylim(0,6) +
+    scale_fill_manual(values = colors) +
+    coord_fixed(ratio = scale) + 
+    ylim(0,6) +
     theme_classic() +
-    guides(fill = guide_legend(nrow=1, title="")) +
+    guides(fill = guide_legend(nrow = 1, title = "")) +
     theme(axis.line.y = element_blank(),
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
@@ -165,6 +181,33 @@ plot_area_presence <- function(obj, darkside = RIGHT_ZONE_NAME, scale = 50){
           legend.box = "horizontal") 
   return(plt)
 }
+
+#' @describeIn 
+#' @export
+plot_area_presence.avoidance.multiple <- function(obj, darkside = RIGHT_ZONE_NAME,
+                                                  scale = 50, colors = NULL){
+  df <- collect_area_presence(obj)
+  if(is.null(df)) return(NULL)
+  if(is.null(colors)) colors <- area_presence_scale(darkside)
+  plt <- ggplot(df) +
+    geom_rect(aes(xmin = start, xmax = end, ymin = -0, ymax = 1, fill = where)) +
+    #geom_text(aes(x=(start+end)/2, y = 1.5 + 5/4*(where=="left"), label = where), check_overlap = TRUE) +
+    xlab("Time since start") +
+    scale_fill_manual(values = colors) +
+    coord_fixed(ratio = scale) + 
+    ylim(0,6) +
+    theme_classic() +
+    guides(fill = guide_legend(nrow = 1, title = "")) +
+    theme(axis.line.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.title.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          legend.position = c(0.9, 0.75),
+          legend.background = element_blank(),
+          legend.box = "horizontal") 
+  return(plt)
+}
+
 
 ## ELEMENTS -----
 #' @export

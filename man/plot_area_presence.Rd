@@ -4,14 +4,16 @@
 \alias{plot_area_presence}
 \title{Plots an image of area presence for avoidance.single}
 \usage{
-plot_area_presence(obj, darkside = RIGHT_ZONE_NAME, scale = 50)
+plot_area_presence(obj, darkside, scale, colors)
 }
 \arguments{
 \item{obj}{avoidance.single object}
 
-\item{darkside}{which side is the dark? Can be either "left" or "right". Defaults to "right"}
+\item{darkside}{which side is the dark? Can be either "left" or "right". 
+Defaults to "right"}
 
-\item{scale}{defines x scale through coord_fixed(ratio = scale). Larger values make the graph narrower. 
+\item{scale}{defines x scale through coord_fixed(ratio = scale). 
+Larger values make the graph narrower. 
 Defaults to 50}
 }
 \value{
