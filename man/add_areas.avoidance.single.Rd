@@ -9,12 +9,14 @@
 \arguments{
 \item{obj}{avoidance.single object}
 
-\item{areas}{list of areas of interest to add. *Defaults* to implemented left, central and right areas 
-in the function \code{\link{default_zones}}}
+\item{areas}{list of areas of interest to add. *Defaults* to implemented left, 
+central and right areas in the function \code{\link{default_zones}}}
 }
 \value{
 object which was passed with added areas
 }
 \description{
-Adds areas into the positioning data
+For a detailed description of how the areas are used and defined
+see the \code{navr} package. Areas are used for cross calculation and during
+plotting.
 }

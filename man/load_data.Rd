@@ -9,11 +9,13 @@ load_data(filepath = NULL, text = NULL)
 \arguments{
 \item{filepath}{Either filepath or a text}
 
-\item{text}{althernatively the data can be loaded from loaded text}
+\item{text}{alternatively the data can be loaded from loaded text}
 }
 \value{
 avoidance.single object
 }
 \description{
-Load data from a particular filepath
+The data are loaded and then preprocessed. 
+Areas are added (see \code{\link{add_areas}}), position data are converted to 
+navr object and classes are added to the resulting objects
 }

@@ -6,11 +6,29 @@
 \alias{create_heatmap.avoidance.multiple}
 \title{Creates heatmap from passed object}
 \usage{
-create_heatmap(obj, bins = 100, background = apparatus_image_path(), ...)
+create_heatmap(
+  obj,
+  bins = 100,
+  background = apparatus_image_path(),
+  add_points = FALSE,
+  ...
+)
 
-\method{create_heatmap}{avoidance.single}(obj, bins = 100, background = apparatus_image_path(), ...)
+\method{create_heatmap}{avoidance.single}(
+  obj,
+  bins = 100,
+  background = apparatus_image_path(),
+  add_points = FALSE,
+  ...
+)
 
-\method{create_heatmap}{avoidance.multiple}(obj, bins = 100, background = apparatus_image_path(), ...)
+\method{create_heatmap}{avoidance.multiple}(
+  obj,
+  bins = 100,
+  background = apparatus_image_path(),
+  add_points = FALSE,
+  ...
+)
 }
 \arguments{
 \item{obj}{object to calculate heatmap from}

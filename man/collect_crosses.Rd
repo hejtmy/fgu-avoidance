@@ -21,11 +21,15 @@ which area it was made to. Time is the time of the cross and index is the index 
 }
 \description{
 The function calculates crosses from each of the default areas 
-definined in the object. The areas need to be added during the preprocessing.
-See \code{\link{add_areas}} to add the default areas.
+definined in the object except the central area. The central area is considered 
+a "buffer" - if an animal enters only the central area, cross is NOT counted. 
+The areas need to be added during the preprocessing and area generally automatically 
+added with \code{\link{load_data}}. If you need to define your own areas you
+can do so using the \code{\link{add_areas}} function.
 
-In case you want to use different htan the default areas, you need to use the `get_area_visits`
-from the `navr` package, which this function uses under the hood
+In case you want to use different then the default areas, you either need 
+to define your own or just use the `get_area_visits` from the `navr` package, 
+which this function uses under the hood
 }
 \section{Methods (by class)}{
 \itemize{
@@ -33,6 +37,6 @@ from the `navr` package, which this function uses under the hood
 object.
 
 \item \code{avoidance.single}: calculates the crosses for the animal. Wrapper around
-the
+the \code{\link{navr::get_area_visits}}.
 }}
 
