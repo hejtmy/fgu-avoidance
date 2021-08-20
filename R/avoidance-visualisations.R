@@ -161,25 +161,10 @@ plot_area_presence <- function(obj, darkside, scale, colors){
 plot_area_presence.avoidance.single <- function(obj, darkside = RIGHT_ZONE_NAME, 
                                                 scale = 50, colors = NULL){
   df <- collect_area_presence(obj)
-  if(is.null(df)) return(NULL)
-  if(is.null(colors)) colors <- area_presence_scale(darkside)
-  plt <- ggplot(df) +
-    geom_rect(aes(xmin = start, xmax = end, ymin = -0, ymax = 1, fill = where)) +
-    #geom_text(aes(x=(start+end)/2, y = 1.5 + 5/4*(where=="left"), label = where), check_overlap = TRUE) +
-    xlab("Time since start") +
-    scale_fill_manual(values = colors) +
-    coord_fixed(ratio = scale) + 
-    ylim(0,6) +
-    theme_classic() +
-    guides(fill = guide_legend(nrow = 1, title = "")) +
-    theme(axis.line.y = element_blank(),
-          axis.text.y = element_blank(),
-          axis.title.y = element_blank(),
-          axis.ticks.y = element_blank(),
-          legend.position = c(0.9, 0.75),
-          legend.background = element_blank(),
-          legend.box = "horizontal") 
-  return(plt)
+  presences <- list(geom_rect(data = df,
+                         mapping = aes(xmin = start, xmax = end,
+                                       ymin = -0, ymax = 1, fill = where)))
+  return(create_plot_area_presence(obj, presences, colors, darkside, scale))
 }
 
 #' @describeIn 
@@ -187,22 +172,34 @@ plot_area_presence.avoidance.single <- function(obj, darkside = RIGHT_ZONE_NAME,
 plot_area_presence.avoidance.multiple <- function(obj, darkside = RIGHT_ZONE_NAME,
                                                   scale = 50, colors = NULL){
   df <- collect_area_presence(obj)
-  if(is.null(df)) return(NULL)
+  animals <- unique(df$animal)
+  out <- list()
+  for(i in 1:length(animals)){
+    animal_name <- animals[i]
+    dat <- df[df$animal == animal_name, ]
+    dat$i <- i
+    out <- c(out, geom_rect(data = dat, mapping = aes(xmin = start, xmax = end,
+                                                    ymin = i-1, ymax = i,
+                                                    fill = where)))
+  }
+  return(create_plot_area_presence(obj, out, colors, darkside, scale))
+}
+
+create_plot_area_presence <- function(obj, presences, colors, darkside, scale){
+  print(length(presences))
   if(is.null(colors)) colors <- area_presence_scale(darkside)
-  plt <- ggplot(df) +
-    geom_rect(aes(xmin = start, xmax = end, ymin = -0, ymax = 1, fill = where)) +
-    #geom_text(aes(x=(start+end)/2, y = 1.5 + 5/4*(where=="left"), label = where), check_overlap = TRUE) +
+  plt <- ggplot() +
+    presences +
     xlab("Time since start") +
     scale_fill_manual(values = colors) +
-    coord_fixed(ratio = scale) + 
-    ylim(0,6) +
+    coord_fixed(ratio = scale) +
     theme_classic() +
     guides(fill = guide_legend(nrow = 1, title = "")) +
     theme(axis.line.y = element_blank(),
           axis.text.y = element_blank(),
           axis.title.y = element_blank(),
           axis.ticks.y = element_blank(),
-          legend.position = c(0.9, 0.75),
+          legend.position = c(0.9, 0.05*scale/length(presences)),
           legend.background = element_blank(),
           legend.box = "horizontal") 
   return(plt)
