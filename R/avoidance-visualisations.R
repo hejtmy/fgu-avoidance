@@ -186,7 +186,6 @@ plot_area_presence.avoidance.multiple <- function(obj, darkside = RIGHT_ZONE_NAM
 }
 
 create_plot_area_presence <- function(obj, presences, colors, darkside, scale){
-  print(length(presences))
   if(is.null(colors)) colors <- area_presence_scale(darkside)
   plt <- ggplot() +
     presences +
