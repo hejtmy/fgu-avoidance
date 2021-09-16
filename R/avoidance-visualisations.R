@@ -225,7 +225,7 @@ base_path_plot <- function(zone = central_zone()){
     geom_box_room() +
     geom_central_zone(zone) +
     theme_void() + 
-    guides(fill=!none)
+    guides(fill="none")
   return(res)
 }
 
